@@ -268,6 +268,33 @@
   .callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: none; background: var(--porch); color: var(--ink); text-decoration: none; font-weight: 800; text-align: center; padding: 16px 12px calc(16px + env(safe-area-inset-bottom)); font-size: 18px; box-shadow: 0 -10px 30px rgba(0,0,0,.3); }
 
 
+  /* chat (stand-in for the live site's GoHighLevel chat) and back to top, stacked in the corner so they never overlap */
+  .chat-launch { position: fixed; right: 20px; bottom: 20px; z-index: 45; width: 60px; height: 60px; border-radius: 50%; border: 0; background: var(--brick); color: #fff; cursor: pointer; display: grid; place-items: center; box-shadow: 0 10px 28px rgba(0,0,0,.3); transition: transform .2s ease, background .2s ease; }
+  .chat-launch svg { width: 28px; height: 28px; }
+  .chat-launch:hover { background: #8E3A23; transform: translateY(-2px); }
+  .greet { position: fixed; right: 92px; bottom: 24px; z-index: 45; width: 260px; background: #FFFDF8; color: var(--ink); border-radius: 12px; box-shadow: 0 12px 34px rgba(0,0,0,.25); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease, visibility 0s linear .4s; }
+  .greet.on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .greet-open { display: block; width: 100%; text-align: left; border: 0; background: none; padding: 14px 42px 14px 16px; font: 600 16px/1.4 var(--sans); color: inherit; cursor: pointer; border-radius: 12px; }
+  .greet-x, .chat-x { position: absolute; width: 32px; height: 32px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; }
+  .greet-x { top: 6px; right: 6px; }
+  .greet-x::before, .greet-x::after, .chat-x::before, .chat-x::after { content: ""; position: absolute; left: 8px; top: 15px; width: 16px; height: 2px; background: currentColor; transform: rotate(45deg); }
+  .greet-x::after, .chat-x::after { transform: rotate(-45deg); }
+  .chat-panel { position: fixed; right: 20px; bottom: 92px; z-index: 46; padding: 0; width: min(370px, 100vw - 40px); max-height: min(620px, 100vh - 120px); display: flex; flex-direction: column; background: #FFFDF8; color: var(--ink); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+  .chat-panel[hidden] { display: none; }
+  .chat-head { position: relative; background: var(--sky); color: #F4ECDD; padding: 16px 52px 16px 20px; }
+  .chat-head h2 { font-size: 21px; margin: 0; letter-spacing: -.01em; }
+  .chat-x { top: 12px; right: 12px; color: #F4ECDD; }
+  .chat-body { overflow-y: auto; overscroll-behavior: contain; padding: 16px; }
+  .chat-msg { margin: 0 0 12px; background: var(--cream-2); border-radius: 12px 12px 12px 4px; padding: 12px 14px; font-size: 16px; line-height: 1.45; }
+  .chatform { padding: 0; background: transparent; gap: 12px; }
+  .chatform textarea { min-height: 90px; }
+  .to-top { position: fixed; right: 26px; bottom: 92px; z-index: 44; width: 48px; height: 48px; border-radius: 12px; border: 2px solid rgba(244,236,221,.35); background: var(--sky); cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,.25); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease, visibility 0s linear .3s; }
+  .to-top.on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .to-top::before { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -3px 0 0 -7px; border-left: 3px solid var(--porch); border-top: 3px solid var(--porch); transform: rotate(45deg); }
+  .to-top:hover { background: #13283A; }
+  body.chat-open .to-top, body.chat-open .greet { opacity: 0; visibility: hidden; }
+  .chat-launch:focus-visible, .to-top:focus-visible, .greet-open:focus-visible, .greet-x:focus-visible, .chat-x:focus-visible { outline: 3px solid var(--porch); outline-offset: 3px; }
+
   .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
   .js .reveal.in { opacity: 1; transform: none; }
 
@@ -307,6 +334,11 @@
   }
   @media (max-width: 900px) {
     header.nav .btn { display: none; }
+    /* sit just above the sticky call bar, whatever its height (it wraps to two lines on narrow phones) */
+    .chat-launch { bottom: calc(var(--cb, 60px) + 14px); width: 56px; height: 56px; }
+    .greet { right: 84px; bottom: calc(var(--cb, 60px) + 18px); width: min(250px, 100vw - 104px); }
+    .to-top { right: 24px; bottom: calc(var(--cb, 60px) + 82px); }
+    .chat-panel { right: 12px; bottom: calc(var(--cb, 60px) + 80px); width: calc(100vw - 24px); max-height: calc(100vh - var(--cb, 60px) - 96px); }
     .final .wrap > div:first-child { min-height: 0; }
     .final .formbox { position: static; }
     .final form { position: static; overflow: visible; }
@@ -632,6 +664,29 @@
   </div>
 </dialog>
 
+<button class="to-top" id="toTop" type="button" aria-label="Back to top"></button>
+
+<div class="greet" id="greet">
+  <button class="greet-open" type="button">Hi there, have a question? Text us here.</button>
+  <button class="greet-x" type="button" aria-label="Dismiss"></button>
+</div>
+<button class="chat-launch" id="chatLaunch" type="button" aria-expanded="false" aria-controls="chatPanel" aria-label="Chat with us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></button>
+<section class="chat-panel" id="chatPanel" role="dialog" aria-labelledby="chat-title" hidden>
+  <div class="chat-head"><h2 id="chat-title">Have a Question?</h2><button class="chat-x" type="button" aria-label="Close chat"></button></div>
+  <div class="chat-body">
+    <p class="chat-msg">Enter your question below and a representative will get right back to you.</p>
+    <form class="lead chatform" id="chat-form" novalidate>
+      <label><span>Name<span class="req" aria-hidden="true">*</span></span><input name="name" autocomplete="name" required></label>
+      <label><span>Phone<span class="req" aria-hidden="true">*</span></span><input name="phone" type="tel" autocomplete="tel" required></label>
+      <label><span>Message<span class="req" aria-hidden="true">*</span></span><textarea name="message" rows="3" required>I want to know more</textarea></label>
+      <label class="check"><input type="checkbox" name="consent"><span>By submitting you agree to receive SMS or e-mails for the provided channel. Rates may be applied.</span></label>
+      <button class="btn btn-brick" type="submit">Send</button>
+      <p class="tiny">Prototype: this chat doesn't send anything yet.</p>
+      <div class="sent" role="status" aria-live="polite"><p class="sent-h">Thanks</p><p class="tiny">In the live site we'd text you back. For anything urgent, call (504) 285-5666 now.</p></div>
+    </form>
+  </div>
+</section>
+
 <a class="callbar" href="tel:+15042855666">Call (504) 285-5666 · Porch Light's On, 24/7</a>
 
 
@@ -715,6 +770,31 @@
     var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: .15 });
     els.forEach(function (e) { io.observe(e); });
   })();
+  // Chat (prototype stand-in for the live GoHighLevel chat) and back to top.
+  (function () {
+    var launch = document.getElementById('chatLaunch'), panel = document.getElementById('chatPanel'), greet = document.getElementById('greet'), up = document.getElementById('toTop');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function seen() { try { return sessionStorage.getItem('tkGreet') === '1'; } catch (e) { return false; } }
+    function remember() { try { sessionStorage.setItem('tkGreet', '1'); } catch (e) {} }
+    function hideGreet() { greet.classList.remove('on'); remember(); }
+    function setChat(open) {
+      panel.hidden = !open; launch.setAttribute('aria-expanded', open); document.body.classList.toggle('chat-open', open);
+      if (open) { hideGreet(); panel.querySelector('input').focus(); }
+    }
+    launch.addEventListener('click', function () { setChat(panel.hidden); });
+    panel.querySelector('.chat-x').addEventListener('click', function () { setChat(false); launch.focus(); });
+    panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setChat(false); launch.focus(); } });
+    greet.querySelector('.greet-open').addEventListener('click', function () { setChat(true); });
+    greet.querySelector('.greet-x').addEventListener('click', hideGreet);
+    if (!seen()) setTimeout(function () { if (panel.hidden) greet.classList.add('on'); }, 4000);
+    var bar = document.querySelector('.callbar');
+    function fitBar() { document.documentElement.style.setProperty('--cb', (getComputedStyle(bar).display !== 'none' ? bar.offsetHeight : 0) + 'px'); }
+    fitBar(); addEventListener('resize', fitBar);
+    function onScroll() { up.classList.toggle('on', window.scrollY > 700); }
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    up.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); document.querySelector('.brand').focus({ preventScroll: true }); });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
