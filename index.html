@@ -88,8 +88,10 @@
 
   /* doors: each one swings open on hover, tap or keyboard focus, revealing a lit room with the first step */
   .doors { container-type: inline-size; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 46px 22px; }
-  .dgroup { --dw: calc((100cqw - 88px) / 5); flex: 0 0 auto; max-width: 100%; }
-  .g-clean { flex-basis: 100%; }
+  /* no empty slots: Water, Fire and Mold share row 1 as 4 equal doors; Cleaning runs 5 then 4, each row filling the width */
+  .dgroup { --dw: calc((100cqw - 88px) / 5); flex: 1 1 0; min-width: 0; }
+  .g-mold { flex: 2 1 22px; }
+  .g-clean { flex: 0 0 100%; }
   .cat { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; font-family: var(--display); font-weight: 700; font-size: 21px; line-height: 1.2; color: var(--bayou-2); }
   .cat::after { content: ""; flex: 1; min-width: 20px; height: 3px; border-radius: 2px; background: currentColor; opacity: .35; }
   .cat a { text-decoration: none; }
@@ -97,7 +99,7 @@
   .cat a:focus-visible { outline: 3px solid var(--porch); outline-offset: 3px; border-radius: 4px; }
   .g-water .cat { color: #2E5A6B; } .g-fire .cat { color: var(--brick); } .g-mold .cat { color: #6B4E2E; }
   .dgrid { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 34px 22px; min-height: 400px; }
-  .doorway { position: relative; flex: 0 0 var(--dw); perspective: 1400px; border-radius: 120px 120px 8px 8px; min-height: 360px; }
+  .doorway { position: relative; flex: 1 1 calc(var(--dw) - 1px); perspective: 1400px; border-radius: 120px 120px 8px 8px; min-height: 360px; }
   .doorway:nth-child(5n+2) { min-height: 400px; } .doorway:nth-child(5n+3) { min-height: 350px; } .doorway:nth-child(5n+4) { min-height: 385px; } .doorway:nth-child(5n) { min-height: 365px; }
   .doorway:hover, .doorway.open, .doorway:focus-within { z-index: 3; }
   .inside { position: absolute; inset: 0; border-radius: inherit; padding: 30px 18px 24px 58px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; color: var(--ink);
@@ -247,11 +249,20 @@
     .menu-close::after { transform: rotate(-45deg); }
   }
   @media (max-width: 1100px) {
-    .doors { display: block; }
-    .dgroup { margin-bottom: 30px; }
-    .dgroup:last-child { margin-bottom: 0; }
+    .doors { gap: 30px 22px; }
+    .g-water, .g-fire { flex: 1 1 0; }
+    .g-mold, .g-clean { flex: 0 0 100%; }
     .dgrid { flex-wrap: nowrap; justify-content: flex-start; align-items: stretch; min-height: 0; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; margin: 0 -16px; padding: 10px 16px 20px; scroll-padding: 0 16px; overscroll-behavior-x: contain; }
     .doorway, .doorway:nth-child(n) { flex: 0 0 min(300px, 80%); min-height: 380px; scroll-snap-align: start; }
+    /* tablet: Water and Fire share a row, the two Mold doors share the next; only Cleaning swipes */
+    .g-water .dgrid, .g-fire .dgrid, .g-mold .dgrid { overflow: visible; margin: 0; padding: 0; }
+    .g-water .doorway:nth-child(n), .g-fire .doorway:nth-child(n), .g-mold .doorway:nth-child(n) { flex: 1 1 0; }
+  }
+  @media (max-width: 600px) {
+    /* phone: Water and Fire full width; Mold and Cleaning swipe */
+    .g-water, .g-fire { flex: 0 0 100%; }
+    .g-mold .dgrid { overflow-x: auto; margin: 0 -16px; padding: 10px 16px 20px; }
+    .g-mold .doorway:nth-child(n) { flex: 0 0 min(300px, 80%); }
   }
   @media (max-width: 900px) {
     header.nav .btn { display: none; }
