@@ -227,9 +227,6 @@
 
   .callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: none; background: var(--porch); color: var(--ink); text-decoration: none; font-weight: 800; text-align: center; padding: 16px 12px calc(16px + env(safe-area-inset-bottom)); font-size: 18px; box-shadow: 0 -10px 30px rgba(0,0,0,.3); }
 
-  .concept { position: fixed; right: 16px; bottom: 16px; z-index: 50; max-width: 300px; background: #FFFDF8; color: var(--ink); border-radius: 12px; padding: 14px 16px; font-size: 13px; line-height: 1.45; box-shadow: 0 10px 40px rgba(0,0,0,.35); transition: opacity .6s; }
-  .concept b { display: block; font-size: 14px; margin-bottom: 4px; }
-  .concept.gone { opacity: 0; pointer-events: none; }
 
   .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
   .js .reveal.in { opacity: 1; transform: none; }
@@ -275,7 +272,6 @@
     .hfig { margin: 0 -24px 24px; }
     section { padding: 72px 0; }
     .callbar { display: block; }
-    .concept { left: 16px; right: 16px; bottom: 80px; max-width: none; }
   }
   @media (max-width: 520px) {
     .doors { grid-template-columns: 1fr; }
@@ -498,7 +494,6 @@
 
 <a class="callbar" href="tel:+15042855666">Call (504) 285-5666 · Porch Light's On, 24/7</a>
 
-<div class="concept" id="concept"><b>Concept C · Porch Light (merged)</b>Real-photo hero, photo doors, a compact step-by-step photo story (from D), offset review cards (from A), home and office photo panels (from B) and street-sign towns.</div>
 
 <script>
   // Signature moment: the porch light switches on shortly after load (immediately with reduced motion).
@@ -585,7 +580,6 @@
     if (!this.checkValidity()) { this.reportValidity(); return; }
     document.getElementById('sent').classList.add('on');
   });
-  setTimeout(function () { document.getElementById('concept').classList.add('gone'); }, 9000);
 </script>
 </body>
 </html>
