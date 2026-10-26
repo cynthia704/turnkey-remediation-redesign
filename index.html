@@ -87,9 +87,9 @@
   .lede { font-size: 19px; color: var(--muted); max-width: 38em; margin: 0 0 46px; }
 
   /* doors: each one swings open on hover, tap or keyboard focus, revealing a lit room with the first step */
-  .doors { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; align-items: end; }
-  .doorway { position: relative; perspective: 1400px; border-radius: 120px 120px 8px 8px; min-height: 360px; }
-  .doorway:nth-child(2) { min-height: 400px; } .doorway:nth-child(3) { min-height: 350px; } .doorway:nth-child(4) { min-height: 385px; } .doorway:nth-child(5) { min-height: 365px; }
+  .doors { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 34px 22px; }
+  .doorway { position: relative; flex: 0 0 calc((100% - 88px) / 5); perspective: 1400px; border-radius: 120px 120px 8px 8px; min-height: 360px; }
+  .doorway:nth-child(5n+2) { min-height: 400px; } .doorway:nth-child(5n+3) { min-height: 350px; } .doorway:nth-child(5n+4) { min-height: 385px; } .doorway:nth-child(5n) { min-height: 365px; }
   .doorway:hover, .doorway.open, .doorway:focus-within { z-index: 3; }
   .inside { position: absolute; inset: 0; border-radius: inherit; padding: 30px 18px 24px 58px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; color: var(--ink);
     background: radial-gradient(120% 70% at 50% 8%, #FFF1C9 0%, #F7CF7A 32%, #E3A64A 70%, #B9792A 100%); box-shadow: inset 0 0 0 6px rgba(23,34,30,.18), inset 0 -40px 60px rgba(120,60,10,.25); }
@@ -98,35 +98,22 @@
   .inside p { margin: 0; font-size: 16px; line-height: 1.5; font-weight: 600; }
   .inside .btn { min-height: 46px; padding: 0 16px; font-size: 15px; background: var(--ink); color: #F4ECDD; align-self: flex-start; }
   .inside .btn:hover { background: var(--bayou); }
+  .inside .more { font-size: 15px; font-weight: 700; color: #6B3A10; }
+  .inside .more a { color: inherit; text-underline-offset: 3px; }
+  .inside .more a:hover { color: var(--ink); }
+  .inside .more a:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 3px; }
   .door { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; text-align: left; cursor: pointer; color: #F4ECDD; background: var(--bayou); border-radius: inherit; padding: 186px 20px 26px;
     transform-origin: left center; transform-style: preserve-3d; transition: transform .85s cubic-bezier(.3,.7,.2,1), box-shadow .85s ease; box-shadow: inset 0 0 0 6px rgba(244,236,221,.08), 0 10px 24px rgba(23,34,30,.12); }
-  .doorway:nth-child(2) .door { background: var(--brick); } .doorway:nth-child(3) .door { background: #2E5A6B; } .doorway:nth-child(4) .door { background: #6B4E2E; } .doorway:nth-child(5) .door { background: var(--bayou-2); }
+  .doorway:nth-child(5n+2) .door { background: var(--brick); } .doorway:nth-child(5n+3) .door { background: #2E5A6B; } .doorway:nth-child(5n+4) .door { background: #6B4E2E; } .doorway:nth-child(5n) .door { background: var(--bayou-2); }
   .doorway:hover .door, .doorway.open .door, .doorway:focus-within .door { transform: rotateY(-78deg); box-shadow: inset 0 0 0 6px rgba(244,236,221,.08), -24px 0 40px rgba(23,34,30,.35); }
   .d-hint:focus-visible { outline: 3px solid var(--porch); outline-offset: 4px; border-radius: 4px; }
   .door .win { position: absolute; left: 18px; top: 34px; height: 130px; width: calc(100% - 36px); object-fit: cover; border-radius: 80px 80px 4px 4px; border: 3px solid rgba(244,236,221,.35); }
   .door::after { content: ""; position: absolute; right: 6px; top: 50%; width: 11px; height: 11px; border-radius: 50%; background: var(--porch); box-shadow: 0 0 0 3px rgba(23,34,30,.25); }
   .door h3 { font-family: var(--display); font-weight: 700; font-size: 25px; line-height: 1.15; margin: 0 0 8px; }
-  @media (min-width: 981px) and (max-width: 1240px) { .door h3 { font-size: 21px; } }
+  @media (min-width: 1101px) and (max-width: 1240px) { .door h3 { font-size: 21px; } }
   .door .d-sub { display: block; margin: 0 0 14px; font-size: 16px; opacity: .88; }
   .door .d-hint { font: 700 15px var(--sans); color: var(--porch); background: none; border: 0; padding: 4px 0; cursor: pointer; }
   .door .d-hint::after { content: " \2192"; }
-
-  /* every service, grouped like the live site's service menu */
-  .svc-all { margin-top: 64px; padding-top: 46px; border-top: 1px solid var(--line); }
-  .svc-all h3 { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 3vw, 36px); letter-spacing: -.015em; line-height: 1.1; margin: 0 0 26px; }
-  .svc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 2fr; gap: 20px; align-items: start; }
-  .svc-group { background: #FFFDF8; border: 1px solid var(--line); border-top: 6px solid var(--bayou-2); border-radius: 12px; padding: 20px 20px 10px; }
-  .svc-water { border-top-color: #2E5A6B; } .svc-fire { border-top-color: var(--brick); } .svc-mold { border-top-color: #6B4E2E; }
-  .svc-group h4 { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.2; margin: 0 0 8px; }
-  .svc-group h4 a { text-decoration: none; }
-  .svc-group h4 a:hover { color: var(--brick); }
-  .svc-group ul { list-style: none; margin: 0; padding: 0; }
-  .svc-clean ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
-  .svc-group li a { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px dashed var(--line); text-decoration: none; font-weight: 600; font-size: 16px; line-height: 1.3; }
-  .svc-group li a::after { content: "\2192"; color: var(--brick); flex: none; transition: transform .2s; }
-  .svc-group li a:hover { color: var(--brick); }
-  .svc-group li a:hover::after { transform: translateX(3px); }
-  .svc-group li a:focus-visible, .svc-group h4 a:focus-visible { outline: 3px solid var(--porch); outline-offset: 2px; border-radius: 4px; }
 
   /* process: photo that changes with the active step (compact, no dead space) */
   .steps-sec { background: var(--cream-2); }
@@ -249,12 +236,9 @@
     .menu-close::before, .menu-close::after { content: ""; position: absolute; width: 20px; height: 2px; background: currentColor; transform: rotate(45deg); }
     .menu-close::after { transform: rotate(-45deg); }
   }
-  @media (max-width: 980px) {
-    .svc-grid { grid-template-columns: 1fr 1fr; }
-    .svc-clean { grid-column: span 2; }
-    .doors { grid-template-columns: repeat(2, 1fr); }
-    .doorway, .doorway:nth-child(n) { min-height: 360px; }
-    .doorway:nth-child(5) { grid-column: span 2; }
+  @media (max-width: 1100px) {
+    .doors { flex-wrap: nowrap; justify-content: flex-start; align-items: stretch; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; margin: 0 -16px; padding: 10px 16px 20px; scroll-padding: 0 16px; overscroll-behavior-x: contain; }
+    .doorway, .doorway:nth-child(n) { flex: 0 0 min(300px, 80%); min-height: 380px; scroll-snap-align: start; }
   }
   @media (max-width: 900px) {
     header.nav .btn { display: none; }
@@ -274,12 +258,7 @@
     .callbar { display: block; }
   }
   @media (max-width: 520px) {
-    .doors { grid-template-columns: 1fr; }
-    .doorway:nth-child(5) { grid-column: auto; }
     .row2 { grid-template-columns: 1fr; }
-    .svc-grid { grid-template-columns: 1fr; }
-    .svc-clean { grid-column: auto; }
-    .svc-clean ul { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -337,36 +316,59 @@
       <p class="lede reveal">Every problem gets its own plan. Choose the one in front of you.</p>
       <div class="doors">
         <div class="doorway reveal">
-          <div class="inside" id="in-water"><small>Do this now</small><p>If you can do it safely, shut off the water at the main. Then call us.</p><a class="btn" href="tel:+15042855666">Call About Water</a></div>
+          <div class="inside" id="in-water"><small>Do this now</small><p>If you can do it safely, shut off the water at the main. Then call us.</p><a class="btn" href="tel:+15042855666">Call About Water</a><span class="more"><a href="water/residential-water-damage-restoration/">For Homes</a> · <a href="water/commercial-water-damage-restoration/">For Businesses</a></span></div>
           <div class="door"><img class="win" src="_assets/img/flood-cut-wall-800.jpg" alt="Wall opened up after water damage" loading="lazy"><h3>Water Damage</h3><span class="d-sub">Burst pipes, roof leaks and flood water, removed and dried.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-water">Open the Door</button></div>
         </div>
         <div class="doorway reveal">
-          <div class="inside" id="in-fire"><small>Do this now</small><p>Make sure the fire department has cleared the building before you go back in.</p><a class="btn" href="tel:+15042855666">Call About Fire</a></div>
+          <div class="inside" id="in-fire"><small>Do this now</small><p>Make sure the fire department has cleared the building before you go back in.</p><a class="btn" href="tel:+15042855666">Call About Fire</a><span class="more"><a href="fire/fire-smoke-damage/">Service Details</a></span></div>
           <div class="door"><img class="win" src="_assets/img/smoke-detector-800.jpg" alt="Smoke near a ceiling smoke detector" loading="lazy"><h3>Fire and Smoke</h3><span class="d-sub">Soot, smoke and the smell that lingers.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-fire">Open the Door</button></div>
         </div>
         <div class="doorway reveal">
-          <div class="inside" id="in-sewage"><small>Do this now</small><p>Keep kids and pets away, and don't try to mop it up yourself.</p><a class="btn" href="tel:+15042855666">Call About Sewage</a></div>
+          <div class="inside" id="in-sewage"><small>Do this now</small><p>Keep kids and pets away, and don't try to mop it up yourself.</p><a class="btn" href="tel:+15042855666">Call About Sewage</a><span class="more"><a href="cleaning/sewage-backup-cleanup/">Service Details</a></span></div>
           <div class="door"><img class="win" src="_assets/img/sewer-line-800.jpg" alt="Open sewer access with a hose" loading="lazy"><h3>Sewage Backup</h3><span class="d-sub">Homes and offices, cleaned up and sanitized.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-sewage">Open the Door</button></div>
         </div>
         <div class="doorway reveal">
-          <div class="inside" id="in-odor"><small>Do this now</small><p>Note where the smell is strongest and when it started.</p><a class="btn" href="tel:+15042855666">Call About Odor</a></div>
+          <div class="inside" id="in-odor"><small>Do this now</small><p>Note where the smell is strongest and when it started.</p><a class="btn" href="tel:+15042855666">Call About Odor</a><span class="more"><a href="cleaning/odor-removal/">Service Details</a></span></div>
           <div class="door"><img class="win" src="_assets/img/disinfect-800.jpg" alt="Disinfectant spray with gloves" loading="lazy"><h3>Odor Removal</h3><span class="d-sub">Smoke, sewage and musty smells, cleaned at the source.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-odor">Open the Door</button></div>
         </div>
         <div class="doorway reveal">
-          <div class="inside" id="in-clean"><small>Do this now</small><p>Tell us what needs cleaning and when you need to reopen.</p><a class="btn" href="tel:+15042855666">Call About Cleaning</a></div>
+          <div class="inside" id="in-clean"><small>Do this now</small><p>Tell us what needs cleaning and when you need to reopen.</p><a class="btn" href="tel:+15042855666">Call About Cleaning</a><span class="more"><a href="cleaning/commercial-cleaning/">Service Details</a></span></div>
           <div class="door"><img class="win" src="_assets/img/floor-scrubber-800.jpg" alt="Floor scrubbing machine on a hard floor" loading="lazy"><h3>Commercial Cleaning</h3><span class="d-sub">Floors, carpets, walls, ceilings and air ducts.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-clean">Open the Door</button></div>
         </div>
-      </div>
-      <p class="pending" style="text-align:left;margin-top:18px">Hover over a door (or tap it) to open it. Door photos are stock placeholders until real job photos are ready.</p>
-      <div class="svc-all reveal" id="services">
-        <h3>Every Service We Offer</h3>
-        <div class="svc-grid">
-          <div class="svc-group svc-water"><h4><a href="water/">Water Services</a></h4><ul><li><a href="water/commercial-water-damage-restoration/">Commercial Water Damage Restoration</a></li><li><a href="water/residential-water-damage-restoration/">Residential Water Damage Restoration</a></li></ul></div>
-          <div class="svc-group svc-fire"><h4><a href="fire/">Fire Services</a></h4><ul><li><a href="fire/fire-smoke-damage/">Fire and Smoke Damage</a></li></ul></div>
-          <div class="svc-group svc-mold"><h4><a href="mold/">Mold Services</a></h4><ul><li><a href="mold/commercial-mold-removal/">Commercial Mold Removal</a></li><li><a href="mold/residential-mold-removal/">Residential Mold Removal</a></li></ul></div>
-          <div class="svc-group svc-clean"><h4><a href="cleaning/">Cleaning Services</a></h4><ul><li><a href="cleaning/air-duct-hvac-cleaning/">Air Duct / HVAC Cleaning</a></li><li><a href="cleaning/carpet-cleaning/">Carpet Cleaning</a></li><li><a href="cleaning/ceiling-cleaning/">Ceiling Cleaning</a></li><li><a href="cleaning/commercial-cleaning/">Commercial Cleaning</a></li><li><a href="cleaning/floor-cleaning/">Floor Cleaning</a></li><li><a href="cleaning/odor-removal/">Odor Removal</a></li><li><a href="cleaning/sanitation/">Sanitation</a></li><li><a href="cleaning/sewage-backup-cleanup/">Sewage Backup Cleanup</a></li><li><a href="cleaning/wall-cleaning/">Wall Cleaning</a></li></ul></div>
+        <div class="doorway reveal">
+          <div class="inside" id="in-res-mold"><small>Do this now</small><p>Don't scrub or disturb it, and keep the room closed off. Then call us.</p><a class="btn" href="tel:+15042855666">Call About Mold</a><span class="more"><a href="mold/residential-mold-removal/">Service Details</a></span></div>
+          <div class="door"><img class="win" src="_assets/img/mold-corner-800.jpg" alt="Dark mold spreading along a wall corner" loading="lazy"><h3>Residential Mold Removal</h3><span class="d-sub">Mold cleanup for your home.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-res-mold">Open the Door</button></div>
+        </div>
+        <div class="doorway reveal">
+          <div class="inside" id="in-com-mold"><small>Do this now</small><p>Keep people out of the affected area and don't disturb it. Then call us.</p><a class="btn" href="tel:+15042855666">Call About Mold</a><span class="more"><a href="mold/commercial-mold-removal/">Service Details</a></span></div>
+          <div class="door"><img class="win" src="_assets/img/mold-wall-800.jpg" alt="Mold spots across a wall" loading="lazy"><h3>Commercial Mold Removal</h3><span class="d-sub">Mold cleanup for offices and businesses.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-com-mold">Open the Door</button></div>
+        </div>
+        <div class="doorway reveal">
+          <div class="inside" id="in-duct"><small>Do this now</small><p>Note when the dust or smell shows up, and whether it's one room or all of them.</p><a class="btn" href="tel:+15042855666">Call About Ducts</a><span class="more"><a href="cleaning/air-duct-hvac-cleaning/">Service Details</a></span></div>
+          <div class="door"><img class="win" src="_assets/img/air-duct-vent-800.jpg" alt="Dusty air vent filter" loading="lazy"><h3>Air Duct / HVAC Cleaning</h3><span class="d-sub">Dust and buildup cleared from ducts and vents.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-duct">Open the Door</button></div>
+        </div>
+        <div class="doorway reveal">
+          <div class="inside" id="in-carpet"><small>Do this now</small><p>Blot spills instead of rubbing. Tell us which rooms need cleaning.</p><a class="btn" href="tel:+15042855666">Call About Carpets</a><span class="more"><a href="cleaning/carpet-cleaning/">Service Details</a></span></div>
+          <div class="door"><img class="win" src="_assets/img/carpet-wand-800.jpg" alt="Carpet cleaning wand on a gray carpet" loading="lazy"><h3>Carpet Cleaning</h3><span class="d-sub">Stains, spills and odors, deep cleaned.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-carpet">Open the Door</button></div>
+        </div>
+        <div class="doorway reveal">
+          <div class="inside" id="in-ceiling"><small>Do this now</small><p>Tell us the ceiling type and height, and whether it's a home or a business.</p><a class="btn" href="tel:+15042855666">Call About Ceilings</a><span class="more"><a href="cleaning/ceiling-cleaning/">Service Details</a></span></div>
+          <div class="door"><img class="win" src="_assets/img/ceiling-clean-800.jpg" alt="Stained white ceiling" loading="lazy"><h3>Ceiling Cleaning</h3><span class="d-sub">Smoke, dust and stains, cleaned off overhead.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-ceiling">Open the Door</button></div>
+        </div>
+        <div class="doorway reveal">
+          <div class="inside" id="in-floor"><small>Do this now</small><p>Tell us the floor type and how much space we're working with.</p><a class="btn" href="tel:+15042855666">Call About Floors</a><span class="more"><a href="cleaning/floor-cleaning/">Service Details</a></span></div>
+          <div class="door"><img class="win" src="_assets/img/floor-machine-800.jpg" alt="Floor cleaning machine on a hard floor" loading="lazy"><h3>Floor Cleaning</h3><span class="d-sub">Floors scrubbed and cleaned for homes and businesses.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-floor">Open the Door</button></div>
+        </div>
+        <div class="doorway reveal">
+          <div class="inside" id="in-wall"><small>Do this now</small><p>Note what's on the walls and which rooms. Then call us.</p><a class="btn" href="tel:+15042855666">Call About Walls</a><span class="more"><a href="cleaning/wall-cleaning/">Service Details</a></span></div>
+          <div class="door"><img class="win" src="_assets/img/wall-stained-800.jpg" alt="Stained brick wall with a ladder" loading="lazy"><h3>Wall Cleaning</h3><span class="d-sub">Smoke, grease and stains, washed off.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-wall">Open the Door</button></div>
+        </div>
+        <div class="doorway reveal">
+          <div class="inside" id="in-sanitize"><small>Do this now</small><p>Tell us what happened in the space and when you need it back in use.</p><a class="btn" href="tel:+15042855666">Call About Sanitation</a><span class="more"><a href="cleaning/sanitation/">Service Details</a></span></div>
+          <div class="door"><img class="win" src="_assets/img/sanitation-crew-800.jpg" alt="Cleaning crew with a vacuum and supply cart" loading="lazy"><h3>Sanitation</h3><span class="d-sub">Spaces cleaned and sanitized after a mess.</span><button class="d-hint" type="button" aria-expanded="false" aria-controls="in-sanitize">Open the Door</button></div>
         </div>
       </div>
+      <p class="pending" style="text-align:left;margin-top:18px">Hover over a door (or tap it) to open it. On a phone or tablet, swipe sideways to see all 13. Door photos are stock placeholders until real job photos are ready.</p>
     </div>
   </section>
 
