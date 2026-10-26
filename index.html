@@ -80,6 +80,12 @@
   h1 { font-family: var(--display); font-weight: 800; font-size: clamp(42px, 6vw, 80px); line-height: 1.06; letter-spacing: -.025em; margin: 0 0 20px; }
   .hero .sub { font-size: 20px; opacity: .9; margin: 0 0 30px; max-width: 30em; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn-line-ink { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+  .btn-line-ink:hover { background: var(--ink); color: #F4ECDD; }
+  .btn-cream:hover, .btn-line-cream:hover { background: rgba(244,236,221,.12); }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 40px; margin: 0 0 46px; }
+  .sec-head .lede { margin-bottom: 0; }
+  .step-ctas { margin: 26px 0 0 68px; }
   .lit .btn-porch { animation: halo 2.6s ease-out 1; }
   @keyframes halo { 0% { box-shadow: 0 0 0 0 rgba(242,184,75,.55); } 100% { box-shadow: 0 0 0 26px rgba(242,184,75,0); } }
 
@@ -350,6 +356,8 @@
     .hero .copy { padding: 110px 0 70px; }
     .hero::before { background: linear-gradient(180deg, rgba(11,24,34,.88) 0%, rgba(11,24,34,.72) 55%, rgba(11,24,34,.9) 100%); }
     .story { grid-template-columns: 1fr; gap: 26px; }
+    .step-ctas { margin-left: 0; }
+    .sec-head { margin-bottom: 34px; }
     .frame { aspect-ratio: 16 / 10; }
     .reviews .wrap, .split .wrap, .area .wrap, .final .wrap { grid-template-columns: 1fr; gap: 36px; }
     .reviews .intro { position: static; }
@@ -417,9 +425,14 @@
 
   <section id="doors" aria-labelledby="h2-doors">
     <div class="wrap">
-      <p class="eyebrow reveal" style="color:var(--brick)">Pick your door</p>
-      <h2 id="h2-doors" class="reveal">What Happened?</h2>
-      <p class="lede reveal">Every problem gets its own plan. Choose the one in front of you.</p>
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow reveal" style="color:var(--brick)">Pick your door</p>
+          <h2 id="h2-doors" class="reveal">What Happened?</h2>
+          <p class="lede reveal">Every problem gets its own plan. Choose the one in front of you.</p>
+        </div>
+        <div class="ctas reveal"><a class="btn btn-porch" href="tel:+15042855666">Call (504) 285-5666</a><button class="btn btn-line-ink" type="button" data-estimate>Get a Free Estimate</button></div>
+      </div>
       <div class="doors">
       <div class="dgroup g-water">
         <h3 class="cat"><a href="water/">Water Services</a></h3>
@@ -511,6 +524,7 @@
           <span class="count" id="count">Step 1 of 4</span>
           <span class="stock">Stock photos</span>
         </div>
+        <div class="story-side">
         <ol class="slist" id="slist">
           <span class="bar" id="bar" aria-hidden="true"></span>
           <li class="step on" tabindex="0"><b>1</b><div><h3>You Call, We Answer</h3><p>Tell us what happened. We'll tell you what to do right away, day or night.</p></div></li>
@@ -518,6 +532,8 @@
           <li class="step" tabindex="0"><b>3</b><div><h3>We Clean Up and Dry Out</h3><p>Water out, materials dried, smoke and odor cleaned at the source.</p></div></li>
           <li class="step" tabindex="0"><b>4</b><div><h3>We Walk You Through It</h3><p>We show you the finished work and answer your questions.</p></div></li>
         </ol>
+        <div class="ctas step-ctas"><a class="btn btn-porch" href="tel:+15042855666">Call (504) 285-5666</a><button class="btn btn-line-ink" type="button" data-estimate>Get a Free Estimate</button></div>
+        </div>
       </div>
     </div>
   </section>
@@ -528,7 +544,7 @@
         <p class="eyebrow reveal">Notes from our neighbors</p>
         <h2 id="h2-cards" class="reveal">Fast, Careful and Clear</h2>
         <p class="lede reveal">That's what customers mention. Not a sales pitch, just the job done and the place back to normal.</p>
-        <a class="btn btn-porch reveal" href="tel:+15042855666">Call (504) 285-5666</a>
+        <div class="ctas reveal"><a class="btn btn-porch" href="tel:+15042855666">Call (504) 285-5666</a><button class="btn btn-cream" type="button" data-estimate>Get a Free Estimate</button></div>
         <figure class="rshot reveal"><img src="_assets/img/carpet-steam-800.jpg" alt="Carpet being steam cleaned" loading="lazy"><span class="stock">Stock</span></figure>
       </div>
       <div class="rlist">
@@ -550,7 +566,7 @@
         <p class="eyebrow" style="color:var(--brick)">For your home</p>
         <h3>When It's Your House</h3>
         <ul><li>Burst pipes and roof leaks</li><li>Kitchen fires and smoke</li><li>Sewage backups</li><li>Smells that won't leave</li></ul>
-        <a class="btn btn-brick" href="tel:+15042855666">Call About Your Home</a>
+        <div class="ctas"><a class="btn btn-brick" href="tel:+15042855666">Call About Your Home</a><button class="btn btn-line-ink" type="button" data-estimate>Get a Free Estimate</button></div>
         <q>"The stains are gone, and our carpets look brand new." Sarah Parker</q>
       </div>
       <div class="half biz reveal">
@@ -558,7 +574,7 @@
         <p class="eyebrow">For your business</p>
         <h3>When It's Your Office</h3>
         <ul><li>Sewage and water cleanup</li><li>Floors, carpets, walls and ceilings</li><li>Air duct and HVAC cleaning</li><li>Scheduled around your hours</li></ul>
-        <a class="btn btn-line-cream" href="tel:+15042855666">Call About Your Business</a>
+        <div class="ctas"><a class="btn btn-line-cream" href="tel:+15042855666">Call About Your Business</a><button class="btn btn-porch" type="button" data-estimate>Get a Free Estimate</button></div>
         <q>"Their commercial cleaning services were thorough, and the odor was completely removed." Mark Thompson</q>
       </div>
     </div>
@@ -573,7 +589,7 @@
         <div class="signs">
           <span class="blade">Metairie</span><span class="blade">Kenner</span><span class="blade">Harahan</span><span class="blade">River Ridge</span><span class="blade">Gretna</span><span class="blade">Belle Chasse</span><span class="blade">St. Rose</span><span class="blade">Laplace</span><span class="blade">Covington</span><span class="blade">Mandeville</span><span class="blade">Madisonville</span><span class="blade">Slidell</span><span class="blade">Hammond</span><span class="blade">Baton Rouge</span>
         </div>
-        <p class="license">Licensed in Louisiana · Residential License # 890459 · Commercial License # 3667 · <span class="confirm">[Confirm: license holder name]</span></p>
+        <p class="license">Licensed in Louisiana · Residential License # 890459 · Commercial License # 3667</p>
       </div>
       <figure class="areafig"><img src="_assets/img/damaged-room-800.jpg" alt="Room with a damaged ceiling and debris" loading="lazy"><span class="stock">Stock</span><figcaption>Swap for a real crew photo</figcaption></figure>
     </div>
