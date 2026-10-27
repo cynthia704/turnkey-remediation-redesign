@@ -64,7 +64,7 @@
   .hero .wrap { position: relative; z-index: 2; width: min(1180px, 100% - 32px); }
   .hero .copy { padding: 140px 0 90px; max-width: 580px; }
   .eyebrow { font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--porch); margin: 0 0 14px; }
-  h1 { font-family: var(--display); font-weight: 800; font-size: clamp(42px, 6vw, 80px); line-height: 1.06; letter-spacing: -.025em; margin: 0 0 20px; }
+  h1, .hero-line { font-family: var(--display); font-weight: 800; font-size: clamp(42px, 6vw, 80px); line-height: 1.06; letter-spacing: -.025em; margin: 0 0 20px; }
   .hero .sub { font-size: 20px; opacity: .9; margin: 0 0 30px; max-width: 30em; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
   .btn-line-ink { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
@@ -408,3 +408,5 @@
 .sec-head > .ctas { flex: 0 1 auto; }
 /* the home/office panels follow the doors directly on inner pages, so no double gap */
 #doors + .split { padding-top: 0; }
+/* homepage: the H1 is the keyword line in eyebrow style; the big headline above the buttons is a styled paragraph */
+h1.eyebrow { font-family: var(--sans); line-height: 1.4; letter-spacing: .12em; }
