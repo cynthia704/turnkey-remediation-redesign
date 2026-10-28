@@ -501,3 +501,39 @@ header.nav.stuck .brand img { height: 50px; }
 .js .lo-item.on .lo-where { max-height: 48px; opacity: 1; margin-top: 8px; }
 .js .lo-item h3 { margin: 0; }
 .js .lo-item.on h3 { margin-bottom: 6px; }
+/* fire page: the restoration track. The line fills from fire red to restored green as you scroll (--p, 0 to 1, set by the script; 1 without it) and each step lights up when the line reaches it. */
+.rs { position: relative; --p: 1; --dot: 76px; }
+.rs-ends { display: flex; justify-content: space-between; height: 22px; line-height: 22px; margin: 0 0 18px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.rs-from { color: var(--brick); }
+.rs-to { color: var(--bayou-2); }
+.rs-track { position: absolute; top: calc(40px + 16px + var(--dot) / 2); left: calc((100% - 66px) / 8); right: calc((100% - 66px) / 8); height: 6px; margin-top: -3px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.rs-fill { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--brick), #C9762E 35%, var(--porch) 65%, var(--bayou-2)); border-radius: 4px; clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0); transition: clip-path .15s linear; }
+.rs-steps { list-style: none; margin: 0; padding: 16px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; position: relative; }
+.rs-step { text-align: center; }
+.rs-dot { position: relative; z-index: 1; width: var(--dot); height: var(--dot); margin: 0 auto 22px; border-radius: 50%; display: grid; place-items: center; background: var(--cream); border: 3px solid var(--line); color: var(--muted); transition: background .4s, border-color .4s, color .4s, box-shadow .4s, transform .4s; }
+.rs-dot svg { width: 32px; height: 32px; }
+.rs-num { display: block; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; transition: color .4s; }
+.rs-step h3 { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.2; margin: 0 0 8px; }
+.rs-step p { margin: 0 auto; max-width: 24em; color: var(--muted); font-size: 16px; }
+.rs-step { --c: var(--brick); --g: rgba(163,69,43,.18); }
+.rs-step:nth-child(2) { --c: #C9762E; --g: rgba(201,118,46,.2); }
+.rs-step:nth-child(3) { --c: #D9A23A; --g: rgba(242,184,75,.25); }
+.rs-step:nth-child(4) { --c: var(--bayou-2); --g: rgba(30,74,59,.2); }
+.rs-step.lit .rs-dot, .rs-step .rs-dot { background: var(--c); border-color: var(--c); color: #fff; box-shadow: 0 0 0 10px var(--g); }
+.rs-step .rs-num { color: var(--c); }
+/* with the script running, steps the line hasn't reached yet stay quiet */
+.js .rs-step:not(.lit) .rs-dot { background: var(--cream); border-color: var(--line); color: var(--muted); box-shadow: none; transform: scale(.92); }
+.js .rs-step:not(.lit) .rs-num { color: var(--muted); }
+.js .rs-step:not(.lit) h3, .js .rs-step:not(.lit) p { opacity: .55; }
+.rs-step h3, .rs-step p { transition: opacity .4s; }
+@media (max-width: 900px) {
+  .rs { --dot: 60px; }
+  .rs-ends { display: none; }
+  .rs-steps { grid-template-columns: 1fr; gap: 28px; padding: 0; }
+  .rs-step { display: grid; grid-template-columns: var(--dot) 1fr; column-gap: 20px; text-align: left; }
+  .rs-dot { grid-row: span 3; margin: 0; }
+  .rs-dot svg { width: 26px; height: 26px; }
+  .rs-step p { margin: 0; }
+  .rs-track { top: calc(var(--dot) / 2); bottom: var(--tail, calc(var(--dot) / 2)); left: calc(var(--dot) / 2 - 3px); right: auto; width: 6px; height: auto; margin: 0; }
+  .rs-fill { width: 100%; height: 100%; background: linear-gradient(180deg, var(--brick), #C9762E 35%, var(--porch) 65%, var(--bayou-2)); clip-path: inset(0 0 calc((1 - var(--p)) * 100%) 0); }
+}

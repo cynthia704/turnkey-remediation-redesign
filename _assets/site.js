@@ -133,6 +133,31 @@
     }
   })();
 
+  // Fire page: the restoration track fills as you scroll through it and lights each step it reaches (all lit at once with reduced motion).
+  (function () {
+    var rs = document.getElementById('rs');
+    if (!rs) return;
+    var steps = [].slice.call(rs.querySelectorAll('.rs-step'));
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var track = rs.querySelector('.rs-track'), dots = [].slice.call(rs.querySelectorAll('.rs-dot'));
+    function upd() {
+      var r = rs.getBoundingClientRect(), vh = window.innerHeight;
+      var p = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.75 - r.top) / (r.height + vh * 0.25)));
+      // on phones the line runs down the left: stop it at the last circle's center, not the bottom of the last step's text
+      var last = dots[dots.length - 1].getBoundingClientRect();
+      rs.style.setProperty('--tail', Math.max(0, r.bottom - (last.top + last.height / 2)) + 'px');
+      rs.style.setProperty('--p', p.toFixed(3));
+      // a step lights when the line's leading edge reaches its circle (works for the row and the column layout)
+      var t = track.getBoundingClientRect(), vertical = t.height > t.width;
+      var edge = vertical ? t.top + p * t.height : t.left + p * t.width;
+      dots.forEach(function (d, i) {
+        var b = d.getBoundingClientRect(), c = vertical ? b.top + b.height / 2 : b.left + b.width / 2;
+        steps[i].classList.toggle('lit', edge >= c - 2);
+      });
+    }
+    addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
