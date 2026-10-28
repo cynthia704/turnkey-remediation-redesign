@@ -110,6 +110,29 @@
     up.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); document.querySelector('.brand').focus({ preventScroll: true }); });
   })();
 
+  // Fire page: the photo pins and the list beside them light up together; the checklist counts what's ticked.
+  (function () {
+    var pins = [].slice.call(document.querySelectorAll('.pin')), items = [].slice.call(document.querySelectorAll('.lo-item'));
+    if (pins.length) {
+      var set = function (i) {
+        pins.forEach(function (p, j) { p.classList.toggle('on', j === i); p.setAttribute('aria-pressed', j === i); });
+        items.forEach(function (it, j) { it.classList.toggle('on', j === i); });
+      };
+      pins.forEach(function (p, i) { ['mouseenter', 'focus', 'click'].forEach(function (ev) { p.addEventListener(ev, function () { set(i); }); }); });
+      items.forEach(function (it, i) { ['mouseenter', 'click'].forEach(function (ev) { it.addEventListener(ev, function () { set(i); }); }); });
+      set(0);
+    }
+    var checks = [].slice.call(document.querySelectorAll('.fs-check')), fill = document.getElementById('fsFill'), count = document.getElementById('fsCount');
+    if (checks.length && fill && count) {
+      var upd = function () {
+        var n = checks.filter(function (c) { return c.checked; }).length;
+        fill.style.width = (n / checks.length * 100) + '%';
+        count.textContent = n === checks.length ? 'All 4 done. Now call us.' : n + ' of ' + checks.length + ' done';
+      };
+      checks.forEach(function (c) { c.addEventListener('change', upd); }); upd();
+    }
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
