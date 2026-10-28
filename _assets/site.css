@@ -65,7 +65,7 @@
   .hero .copy { padding: 140px 0 90px; max-width: 580px; }
   .eyebrow { font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--porch); margin: 0 0 14px; }
   h1, .hero-line { font-family: var(--display); font-weight: 800; font-size: clamp(42px, 6vw, 80px); line-height: 1.06; letter-spacing: -.025em; margin: 0 0 20px; }
-  .hero .sub { font-size: 20px; opacity: .9; margin: 0 0 30px; max-width: 30em; }
+  .hero .hero-sub { font-size: 20px; opacity: .9; margin: 0 0 30px; max-width: 30em; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
   .btn-line-ink { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
   .btn-line-ink:hover { background: var(--ink); color: #F4ECDD; }
