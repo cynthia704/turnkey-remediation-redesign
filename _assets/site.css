@@ -410,3 +410,23 @@
 #doors + .split { padding-top: 0; }
 /* homepage: the H1 is the keyword line in eyebrow style; the big headline above the buttons is a styled paragraph */
 h1.eyebrow { font-family: var(--sans); line-height: 1.4; letter-spacing: .12em; }
+/* fire page: the lead door is fire red, the cleanups after it stay green */
+.g-fire-lead .doorway:first-child .door { background: var(--brick); }
+/* "what fire leaves behind" cards on the night-blue band */
+.leftover-sec { background: var(--sky); color: #F4ECDD; }
+.leftover-sec .eyebrow { color: var(--porch); }
+.leftover-sec .lede { color: #C9D2CB; }
+.leftover { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.lcard { background: rgba(244,236,221,.06); border: 1px solid rgba(244,236,221,.16); border-top: 4px solid var(--porch); border-radius: 14px; padding: 24px 22px 26px; }
+.lcard h3 { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.2; margin: 0 0 10px; }
+.lcard p { margin: 0; color: #C9D2CB; font-size: 16px; }
+/* one review, large */
+.quote-band .wrap { max-width: 900px; }
+.qbig { margin: 0 0 28px; }
+.qbig blockquote { margin: 0 0 14px; font-family: var(--display); font-weight: 700; font-size: clamp(26px, 3.2vw, 38px); line-height: 1.25; letter-spacing: -.01em; }
+.qbig figcaption { color: var(--muted); font-size: 16px; }
+.qbig figcaption b { color: var(--brick); }
+@media (max-width: 980px) { .leftover { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .leftover { grid-template-columns: 1fr; } }
+.quote-band .wrap { text-align: center; }
+.quote-band .ctas { justify-content: center; }
