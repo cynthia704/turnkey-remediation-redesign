@@ -4,6 +4,13 @@
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (hero) setTimeout(function () { hero.classList.add('lit'); }, reduce ? 0 : 1100);
   })();
+  // Sticky header: after scrolling past the top of the page the header pins to the top as a solid bar.
+  (function () {
+    var head = document.querySelector('header.nav');
+    if (!head) return;
+    function onScroll() { head.classList.toggle('stuck', window.scrollY > 160); }
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  })();
   // Menu: dropdowns open on hover (CSS); the caret button toggles them for touch and keyboard; below 1200px the menu slides in as a panel.
   (function () {
     var nav = document.getElementById('menu'), head = document.querySelector('header.nav'), btn = document.getElementById('menuBtn'), close = nav.querySelector('.menu-close');

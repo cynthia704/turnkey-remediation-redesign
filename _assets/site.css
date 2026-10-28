@@ -430,3 +430,12 @@ h1.eyebrow { font-family: var(--sans); line-height: 1.4; letter-spacing: .12em; 
 @media (max-width: 520px) { .leftover { grid-template-columns: 1fr; } }
 .quote-band .wrap { text-align: center; }
 .quote-band .ctas { justify-content: center; }
+/* sticky header: transparent over the hero at the top; once you scroll, a solid bar slides in and stays.
+   No transform or backdrop-filter on the header: either would trap the fixed phone menu panel inside it. */
+html { scroll-padding-top: 96px; }
+header.nav.stuck { position: fixed; background: rgba(14,30,42,.97); box-shadow: 0 8px 24px rgba(0,0,0,.28); animation: navDrop .35s ease-out; }
+header.nav.stuck .wrap { padding: 8px 0; }
+header.nav.stuck .brand { padding: 4px 8px; }
+header.nav.stuck .brand img { height: 50px; }
+@keyframes navDrop { from { top: -96px; } to { top: 0; } }
+@media (max-width: 900px) { header.nav.stuck .brand img { height: 44px; } }
