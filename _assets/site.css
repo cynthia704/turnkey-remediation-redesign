@@ -537,3 +537,85 @@ header.nav.stuck .brand img { height: 50px; }
   .rs-track { top: calc(var(--dot) / 2); bottom: var(--tail, calc(var(--dot) / 2)); left: calc(var(--dot) / 2 - 3px); right: auto; width: 6px; height: auto; margin: 0; }
   .rs-fill { width: 100%; height: 100%; background: linear-gradient(180deg, var(--brick), #C9762E 35%, var(--porch) 65%, var(--bayou-2)); clip-path: inset(0 0 calc((1 - var(--p)) * 100%) 0); }
 }
+/* ---------- water page ---------- */
+/* "What's Leaking?": icon tabs on the left, the chosen source on the right */
+.wl { display: grid; grid-template-columns: 340px 1fr; gap: 26px; align-items: stretch; }
+.wl-tabs { display: grid; gap: 10px; align-content: start; }
+.wl-tab { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--cream); color: var(--ink); font: 700 17px var(--sans); cursor: pointer; transition: background .2s, border-color .2s, transform .2s; }
+.wl-tab:hover { border-color: #2E7DA8; transform: translateX(4px); }
+.wl-tab[aria-selected="true"] { background: #0E2A3A; border-color: #0E2A3A; color: #F4ECDD; }
+.wl-tab:focus-visible { outline: 3px solid var(--porch); outline-offset: 2px; }
+.wl-ico { flex: none; width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: #DCEBF3; color: #2E7DA8; transition: background .2s, color .2s; }
+.wl-ico svg { width: 26px; height: 26px; }
+.wl-tab[aria-selected="true"] .wl-ico { background: #2E7DA8; color: #fff; }
+.wl-panel { position: relative; overflow: hidden; background: #0E2A3A; color: #F4ECDD; border-radius: 18px; padding: 40px 40px 36px; }
+.wl-panel::after { content: ""; position: absolute; left: -10%; right: -10%; bottom: -40px; height: 120px; background: radial-gradient(60% 100% at 50% 100%, rgba(46,125,168,.45), rgba(46,125,168,0)); pointer-events: none; }
+.wl-panel[hidden] { display: none; }
+.wl-big { position: absolute; right: 28px; top: 24px; width: 120px; height: 120px; color: rgba(220,235,243,.12); }
+.wl-big svg { width: 100%; height: 100%; }
+.wl-panel h3 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 3vw, 38px); line-height: 1.1; margin: 0 0 22px; max-width: 14em; }
+.wl-do { margin: 0 0 18px; font-size: 20px; line-height: 1.45; max-width: 30em; }
+.wl-do b { display: block; margin-bottom: 6px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--porch); }
+.wl-type { margin: 0 0 28px; color: #C9D6DE; max-width: 34em; }
+.wt-badge { display: inline-block; margin-right: 10px; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .04em; vertical-align: 1px; }
+.wt-clean { background: #2E7DA8; color: #fff; }
+.wt-grey { background: #8A969E; color: #fff; }
+.wt-black { background: #F4ECDD; color: #17221E; }
+.wl-panel .btn-line-ink { color: #F4ECDD; border-color: rgba(244,236,221,.6); }
+.wl-panel .btn-line-ink:hover { background: rgba(244,236,221,.12); color: #F4ECDD; }
+.wl-panel .ctas { position: relative; z-index: 1; }
+/* "From Wet to Dry": moisture meter beside the five steps */
+.ms { display: grid; grid-template-columns: .9fr 1.1fr; gap: 44px; align-items: center; }
+.meter { margin: 0; background: var(--cream); border: 1px solid var(--line); border-radius: 20px; padding: 30px 30px 24px; text-align: center; box-shadow: 0 18px 40px rgba(23,34,30,.08); }
+.meter svg { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto; font-family: var(--sans); }
+.needle { transform-origin: 120px 130px; transform: rotate(var(--angle, -80deg)); transition: transform .9s cubic-bezier(.3,1.4,.5,1); }
+.meter figcaption { margin-top: 10px; font-weight: 700; font-size: 18px; color: var(--muted); }
+#msRead { color: var(--ink); font-family: var(--display); font-size: 24px; margin-left: 4px; }
+.ms-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ms-step { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; width: 100%; text-align: left; padding: 14px 18px; border-radius: 14px; border: 1px solid var(--line); background: var(--cream); color: var(--ink); font: 400 16px/1.5 var(--sans); cursor: pointer; transition: background .2s, border-color .2s; }
+.ms-step b { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: #DCEBF3; color: #2E7DA8; font: 800 17px var(--display); transition: background .2s, color .2s; }
+.ms-h { display: block; font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.25; padding-top: 7px; }
+.ms-p { display: block; color: var(--muted); max-height: 0; overflow: hidden; opacity: 0; transition: max-height .35s ease, opacity .25s ease, margin .35s ease; }
+.ms-step.on { background: #FFFDF8; border-color: #2E7DA8; }
+.ms-step.on b { background: #2E7DA8; color: #fff; }
+.ms-step.on .ms-p { max-height: 140px; opacity: 1; margin-top: 4px; }
+.ms-step:hover { border-color: #2E7DA8; }
+.ms-step:focus-visible { outline: 3px solid var(--porch); outline-offset: 2px; }
+/* "Not All Water Is the Same": three water jars and a hidden-water wall on deep water blue */
+.jars-sec { background: #0E2A3A; color: #F4ECDD; }
+.jars-sec .eyebrow { color: var(--porch); }
+.jars-sec .lede { color: #C9D6DE; }
+.jars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.jar-card { background: rgba(244,236,221,.05); border: 1px solid rgba(244,236,221,.14); border-radius: 18px; padding: 26px 22px 24px; text-align: center; }
+.jar-card h3 { font-family: var(--display); font-weight: 700; font-size: 22px; margin: 18px 0 8px; }
+.jar-card p { margin: 0 0 10px; color: #C9D6DE; font-size: 16px; }
+.jar-card .jar-ex { font-size: 15px; color: #AFC0C8; margin: 0; }
+.jar-card .jar-ex b { color: var(--porch); }
+.jar { position: relative; width: 104px; height: 150px; margin: 0 auto; border: 4px solid rgba(244,236,221,.7); border-top-width: 10px; border-radius: 12px 12px 30px 30px; overflow: hidden; background: rgba(244,236,221,.05); }
+.jar-water { position: absolute; left: 0; right: 0; bottom: 0; height: 62%; transition: height .6s ease; }
+.jar-water::before, .jar-water::after { content: ""; position: absolute; left: 0; width: 200%; height: 16px; top: -15px; background-repeat: repeat-x; background-size: 52px 16px; animation: wave 3s linear infinite; }
+.jar-water::after { top: -12px; opacity: .45; animation-duration: 4.5s; animation-direction: reverse; }
+.jar-card:hover .jar-water { height: 80%; }
+.jar-clean .jar-water { background: #4FA3CF; }
+.jar-grey .jar-water { background: #8A969E; }
+.jar-black .jar-water { background: #3A3328; }
+.jar-clean .jar-water::before, .jar-clean .jar-water::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='16' viewBox='0 0 52 16'%3E%3Cpath d='M0 9 Q13 1 26 9 T52 9 V16 H0Z' fill='%234FA3CF'/%3E%3C/svg%3E"); }
+.jar-grey .jar-water::before, .jar-grey .jar-water::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='16' viewBox='0 0 52 16'%3E%3Cpath d='M0 9 Q13 1 26 9 T52 9 V16 H0Z' fill='%238A969E'/%3E%3C/svg%3E"); }
+.jar-black .jar-water::before, .jar-black .jar-water::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='16' viewBox='0 0 52 16'%3E%3Cpath d='M0 9 Q13 1 26 9 T52 9 V16 H0Z' fill='%233A3328'/%3E%3C/svg%3E"); }
+@keyframes wave { from { transform: translateX(0); } to { transform: translateX(-52px); } }
+.hid-wall { position: relative; width: 150px; height: 150px; margin: 0 auto; color: rgba(244,236,221,.55); }
+.hid-wall svg { width: 100%; height: 100%; }
+.hid-drop { position: absolute; left: 50%; top: 40%; width: 18px; height: 18px; margin-left: -9px; background: #4FA3CF; border-radius: 50% 50% 50% 0; rotate: -45deg; animation: drip 2.4s ease-in infinite; }
+@keyframes drip { 0% { opacity: 0; translate: 0 -10px; } 30% { opacity: 1; } 100% { opacity: 0; translate: 0 50px; } }
+@media (max-width: 980px) {
+  .wl, .ms { grid-template-columns: 1fr; }
+  .wl-tabs { grid-auto-flow: column; grid-auto-columns: minmax(170px, 1fr); overflow-x: auto; padding-bottom: 6px; }
+  .wl-tab:hover { transform: none; }
+  .jars { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .wl-panel { padding: 30px 22px 26px; }
+  .wl-big { width: 80px; height: 80px; right: 16px; top: 16px; }
+  .wl-do { font-size: 18px; }
+  .jars { grid-template-columns: 1fr; }
+}

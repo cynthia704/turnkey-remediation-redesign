@@ -158,6 +158,40 @@
     addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
   })();
 
+  // Water page: "What's Leaking?" tabs (arrow keys move between them) and the moisture meter steps.
+  (function () {
+    var tabs = [].slice.call(document.querySelectorAll('.wl-tab'));
+    if (tabs.length) {
+      var pick = function (i, focus) {
+        tabs.forEach(function (t, j) {
+          var on = j === i;
+          t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+        });
+        if (focus) tabs[i].focus();
+      };
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { pick(i); });
+        t.addEventListener('keydown', function (e) {
+          var n = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+          if (n) { e.preventDefault(); pick((i + n + tabs.length) % tabs.length, true); }
+          if (e.key === 'Home') { e.preventDefault(); pick(0, true); }
+          if (e.key === 'End') { e.preventDefault(); pick(tabs.length - 1, true); }
+        });
+      });
+    }
+    var steps = [].slice.call(document.querySelectorAll('.ms-step')), needle = document.querySelector('.needle'), read = document.getElementById('msRead');
+    if (steps.length && needle && read) {
+      var go = function (i) {
+        steps.forEach(function (s, j) { s.classList.toggle('on', j === i); s.setAttribute('aria-pressed', j === i); });
+        needle.style.setProperty('--angle', steps[i].getAttribute('data-angle') + 'deg');
+        read.textContent = steps[i].getAttribute('data-read');
+      };
+      steps.forEach(function (s, i) { s.addEventListener('click', function () { go(i); }); });
+      go(0);
+    }
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
