@@ -396,6 +396,24 @@
     choose('kitchen');
   })();
 
+  // Fire and smoke: the slider and stage buttons spread smoke across the floor plan and pick the panel.
+  (function () {
+    var range = document.getElementById('fsRange');
+    if (!range) return;
+    var rooms = [].slice.call(document.querySelectorAll('.fs-room')), stops = [].slice.call(document.querySelectorAll('.fs-stop')), panels = [].slice.call(document.querySelectorAll('.fs-panel')), vents = document.querySelector('.fs-vents');
+    function set(n) {
+      range.value = n;
+      rooms.forEach(function (r) { r.classList.toggle('fs-lit', +r.getAttribute('data-stage') <= n); });
+      vents.classList.toggle('fs-lit', n >= 4);
+      stops.forEach(function (b) { b.setAttribute('aria-pressed', +b.getAttribute('data-stage') === n ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('fs-on', +p.getAttribute('data-stage') === n); });
+    }
+    range.addEventListener('input', function () { set(+range.value); });
+    stops.forEach(function (b) { b.addEventListener('click', function () { set(+b.getAttribute('data-stage')); }); });
+    rooms.forEach(function (r) { r.addEventListener('click', function () { set(+r.getAttribute('data-stage')); }); });
+    set(1);
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
