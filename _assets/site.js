@@ -240,6 +240,74 @@
     else setTimeout(function () { set(true); }, 1200);
   })();
 
+  // Testimonials: turn the guest book pages; chips filter the reviews by job.
+  (function () {
+    var leaves = [].slice.call(document.querySelectorAll('.ts-leaf')), num = document.getElementById('tsNum'), at = 0;
+    if (leaves.length && num) {
+      var go = function (d) {
+        leaves[at].classList.remove('on');
+        at = (at + d + leaves.length) % leaves.length;
+        leaves[at].classList.add('on');
+        num.textContent = (at + 1) + ' of ' + leaves.length;
+      };
+      document.getElementById('tsPrev').addEventListener('click', function () { go(-1); });
+      document.getElementById('tsNext').addEventListener('click', function () { go(1); });
+    }
+    var chips = [].slice.call(document.querySelectorAll('.ts-chip[data-kind]')), cards = [].slice.call(document.querySelectorAll('.ts-card')), count = document.getElementById('tsCount');
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        var k = c.getAttribute('data-kind'), n = 0;
+        chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+        cards.forEach(function (d) {
+          var show = k === 'all' || d.getAttribute('data-kind') === k;
+          d.hidden = !show;
+          if (show) { n++; d.classList.add('in'); }
+        });
+        if (count) count.textContent = n + (n === 1 ? ' review' : ' reviews') + ' shown';
+      });
+    });
+  })();
+
+  // FAQs: search and topic buttons filter the questions; the popular links open their answer.
+  (function () {
+    var box = document.getElementById('fqSearch');
+    if (!box) return;
+    var groups = [].slice.call(document.querySelectorAll('.fq-group')), chips = [].slice.call(document.querySelectorAll('.fq-chip')), count = document.getElementById('fqCount'), none = document.getElementById('fqNone'), cat = 'all';
+    function apply() {
+      var words = box.value.toLowerCase().split(/\s+/).filter(Boolean), total = 0;
+      groups.forEach(function (g) {
+        var shown = 0;
+        [].forEach.call(g.querySelectorAll('details'), function (d) {
+          var text = d.textContent.toLowerCase();
+          var show = (cat === 'all' || g.getAttribute('data-cat') === cat) && words.every(function (w) { return text.indexOf(w) !== -1; });
+          d.hidden = !show;
+          if (show) shown++;
+        });
+        g.hidden = !shown;
+        total += shown;
+      });
+      none.hidden = total > 0;
+      count.textContent = total + (total === 1 ? ' question' : ' questions');
+    }
+    box.addEventListener('input', apply);
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        cat = c.getAttribute('data-cat');
+        chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+        apply();
+      });
+    });
+    [].forEach.call(document.querySelectorAll('[data-open]'), function (a) {
+      a.addEventListener('click', function () {
+        box.value = ''; cat = 'all';
+        chips.forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-cat') === 'all' ? 'true' : 'false'); });
+        apply();
+        var d = document.getElementById(a.getAttribute('href').slice(1));
+        if (d) d.open = true;
+      });
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
