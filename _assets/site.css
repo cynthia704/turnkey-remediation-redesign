@@ -622,3 +622,68 @@ header.nav.stuck .brand img { height: 50px; }
 /* water page: moisture-damaged wall behind "From Wet to Dry"; the tint keeps the heading readable */
 .ms-sec { background: linear-gradient(180deg, rgba(234,223,203,.9) 0%, rgba(234,223,203,.74) 45%, rgba(234,223,203,.84) 100%), url("img/water-wall-bg.jpg") center / cover no-repeat; }
 .ms-sec .lede { color: #3F4B45; }
+/* ---------- mold page ---------- */
+/* "Where Mold Likes to Hide": a house you can click, room by room */
+.hm { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; }
+.hm-house { display: grid; grid-template-columns: 62px 1fr 1fr 62px; grid-template-rows: 150px 170px 84px; gap: 6px; }
+.hm-room { border: 0; padding: 8px; cursor: pointer; display: grid; place-content: center; justify-items: center; gap: 6px; font: 700 17px var(--display); color: var(--ink); background: var(--cream); transition: background .2s, color .2s; }
+.hm-room:hover { background: #E9D8B5; }
+.hm-room[aria-pressed="true"] { background: #4A5B3A; color: #fff; }
+.hm-room:focus-visible { outline: 3px solid var(--brick); outline-offset: 2px; position: relative; z-index: 1; }
+.hm-attic { grid-column: 1 / -1; clip-path: polygon(50% 0, 100% 100%, 0 100%); padding-top: 60px; }
+.hm-wall { grid-row: 2; grid-column: 1; }
+.hm-wall span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 15px; }
+.hm-bath { grid-row: 2; grid-column: 2; }
+.hm-kitchen { grid-row: 2; grid-column: 3; }
+.hm-wall-r { grid-row: 2; grid-column: 4; }
+.hm-crawl { grid-row: 3; grid-column: 1 / -1; background: #D8C7A5; }
+.hm-panels { background: #FFFDF8; border: 1px solid var(--line); border-left: 6px solid #4A5B3A; border-radius: 14px; padding: 30px 30px 28px; min-height: 230px; }
+.hm-panel[hidden] { display: none; }
+.hm-panel h3 { font-family: var(--display); font-weight: 800; font-size: 30px; line-height: 1.15; margin: 0 0 12px; }
+.hm-panel p { margin: 0 0 12px; font-size: 18px; }
+.hm-look { color: var(--muted); font-size: 17px; margin: 0; }
+.hm-look b { color: #4A5B3A; }
+/* do and leave alone */
+.dd { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.dd-card { border-radius: 16px; padding: 30px 30px 26px; }
+.dd-do { background: var(--bayou-2); color: #F4ECDD; }
+.dd-dont { background: var(--brick); color: #fff; }
+.dd-card h3 { font-family: var(--display); font-weight: 800; font-size: 28px; margin: 0 0 16px; }
+.dd-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.dd-card li { position: relative; padding-left: 34px; line-height: 1.45; }
+.dd-card li::before { content: ""; position: absolute; left: 3px; top: 3px; width: 8px; height: 15px; border-right: 3px solid var(--porch); border-bottom: 3px solid var(--porch); rotate: 45deg; }
+.dd-dont li::before { left: 0; top: 11px; width: 20px; height: 3px; border: 0; background: #FFD9C7; rotate: 45deg; }
+.dd-dont li::after { content: ""; position: absolute; left: 0; top: 11px; width: 20px; height: 3px; background: #FFD9C7; rotate: -45deg; }
+/* "How Mold Removal Works": a containment-tape band over a dark photo of the wall */
+.tape-sec { background: linear-gradient(rgba(14,30,42,.9), rgba(14,30,42,.93)), url("img/mold-bg.jpg") center / cover no-repeat; color: #F4ECDD; }
+.tape-sec .eyebrow { color: var(--porch); }
+.tape-sec .lede { color: #C9D2CB; }
+.ctape { height: 16px; margin: 0 -9999px; background: repeating-linear-gradient(135deg, var(--porch) 0 22px, #17221E 22px 44px); }
+.tape-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.tape-steps li { position: relative; background: rgba(244,236,221,.06); border: 1px solid rgba(244,236,221,.16); border-top: 0; border-radius: 0 0 14px 14px; padding: 26px 22px 26px; }
+.tape-steps b { display: block; font: 800 52px/1 var(--display); color: var(--porch); margin-bottom: 12px; }
+.tape-steps h3 { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.2; margin: 0 0 8px; }
+.tape-steps p { margin: 0; color: #C9D2CB; font-size: 16px; }
+.tape-sec { overflow: hidden; }
+/* keeping it dry */
+.dry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.dry-card { background: var(--cream); border: 1px solid var(--line); border-radius: 14px; padding: 26px 24px; }
+.dry-ico { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: #DCE3D3; color: #4A5B3A; margin-bottom: 14px; }
+.dry-ico svg { width: 30px; height: 30px; }
+.dry-card h3 { font-family: var(--display); font-weight: 700; font-size: 22px; margin: 0 0 6px; }
+.dry-card p { margin: 0; color: var(--muted); font-size: 16px; }
+@media (max-width: 980px) {
+  .hm, .dd { grid-template-columns: 1fr; }
+  .tape-steps { grid-template-columns: 1fr 1fr; }
+  .dry { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .tape-steps { grid-template-columns: 1fr; }
+  .hm-house { grid-template-columns: 44px 1fr 1fr 44px; grid-template-rows: 110px 130px 70px; }
+  .hm-attic { padding-top: 44px; }
+  .hm-room { font-size: 15px; }
+}
+.hm-ico { width: 34px; height: 34px; color: #4A5B3A; transition: color .2s; }
+.hm-room[aria-pressed="true"] .hm-ico { color: #F2B84B; }
+.dry-sec { background: #E3E8DA; }
+@media (max-width: 520px) { .hm-ico { width: 26px; height: 26px; } }

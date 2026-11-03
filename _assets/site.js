@@ -192,6 +192,19 @@
     }
   })();
 
+  // Mold page: click a part of the house to see why moisture collects there.
+  (function () {
+    var rooms = [].slice.call(document.querySelectorAll('.hm-room')), panels = [].slice.call(document.querySelectorAll('.hm-panel'));
+    if (!rooms.length) return;
+    rooms.forEach(function (r) {
+      r.addEventListener('click', function () {
+        var n = +r.getAttribute('data-room');
+        rooms.forEach(function (x) { x.setAttribute('aria-pressed', +x.getAttribute('data-room') === n); });
+        panels.forEach(function (p, i) { p.hidden = i !== n; });
+      });
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
