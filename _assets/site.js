@@ -357,6 +357,30 @@
     });
   })();
 
+  // Contact: New Orleans clock beside the sign; the chooser shows a first step and sets the form's service.
+  (function () {
+    var clock = document.getElementById('cnClock');
+    if (clock && window.Intl) {
+      var zone = 'America/Chicago', fmtT = new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: 'numeric', minute: '2-digit' }), fmtD = new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'long' });
+      var tick = function () { var now = new Date(); clock.textContent = 'It\u2019s ' + fmtT.format(now) + ' on ' + fmtD.format(now) + ' in New Orleans. We answer 24/7.'; };
+      tick();
+      setInterval(tick, 30000);
+    }
+    var picks = [].slice.call(document.querySelectorAll('.cn-pick')), panels = [].slice.call(document.querySelectorAll('.cn-panel'));
+    picks.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-case');
+        picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        panels.forEach(function (p) { p.classList.toggle('cn-on', p.getAttribute('data-case') === k); });
+      });
+    });
+    [].forEach.call(document.querySelectorAll('[data-service]'), function (b) {
+      b.addEventListener('click', function () {
+        [].forEach.call(document.querySelectorAll('select[name="service"]'), function (s) { s.value = b.getAttribute('data-service'); });
+      });
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
