@@ -381,6 +381,21 @@
     });
   })();
 
+  // Residential water: rooms on the house and the room buttons pick the same panel.
+  (function () {
+    var rooms = [].slice.call(document.querySelectorAll('.rw-room'));
+    if (!rooms.length) return;
+    var picks = [].slice.call(document.querySelectorAll('.rw-pick')), panels = [].slice.call(document.querySelectorAll('.rw-panel'));
+    function choose(k) {
+      rooms.forEach(function (r) { r.classList.toggle('rw-on', r.getAttribute('data-room') === k); });
+      picks.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-room') === k ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('rw-on', p.getAttribute('data-room') === k); });
+    }
+    rooms.forEach(function (r) { r.addEventListener('click', function () { choose(r.getAttribute('data-room')); }); });
+    picks.forEach(function (b) { b.addEventListener('click', function () { choose(b.getAttribute('data-room')); }); });
+    choose('kitchen');
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
