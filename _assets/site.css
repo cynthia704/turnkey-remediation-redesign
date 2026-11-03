@@ -1491,3 +1491,67 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
   .ad-fan, .ad-flow { animation: none; }
   .ad-meter span { transition: none; }
 }
+
+/* Floor Cleaning */
+.fc-sec { padding: 84px 0 92px; background: var(--cream); }
+.fc-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: stretch; }
+.fc-layout > * { min-width: 0; }
+.fc-stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 14px; box-shadow: 0 14px 30px rgba(23,34,30,.22); }
+.fc-floor { position: absolute; inset: 0; }
+.fc-tile-f .fc-floor { background: repeating-linear-gradient(0deg, #B9B2A5 0 4px, transparent 4px 84px), repeating-linear-gradient(90deg, #B9B2A5 0 4px, transparent 4px 84px), #F1ECE2; }
+.fc-wood-f .fc-floor { background: repeating-linear-gradient(0deg, rgba(60,30,10,.45) 0 2px, transparent 2px 46px), repeating-linear-gradient(90deg, rgba(60,30,10,.1) 0 3px, transparent 3px 37px), #BE8450; }
+.fc-lvp-f .fc-floor { background: repeating-linear-gradient(0deg, rgba(40,40,40,.4) 0 2px, transparent 2px 64px), repeating-linear-gradient(90deg, rgba(255,255,255,.1) 0 4px, transparent 4px 53px), #B1A898; }
+.fc-vinyl-f .fc-floor { background: conic-gradient(#CFDAD8 25%, #F4F6F4 0 50%, #CFDAD8 0 75%, #F4F6F4 0) 0 0 / 104px 104px; }
+.fc-carpet-f .fc-floor { background: radial-gradient(rgba(255,255,255,.22) 1px, transparent 1.4px) 0 0 / 6px 6px, radial-gradient(rgba(0,0,0,.2) 1px, transparent 1.4px) 3px 3px / 6px 6px, #76868C; }
+.fc-floor.fc-dirty { clip-path: inset(0 0 0 var(--x)); filter: sepia(.75) brightness(.56) contrast(1.1); }
+.fc-floor.fc-dirty::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60px 34px at 56% 18%, rgba(38,25,11,0.62), transparent 72%), radial-gradient(120px 64px at 66% 42%, rgba(38,25,11,0.55), transparent 72%), radial-gradient(40px 26px at 74% 14%, rgba(38,25,11,0.6), transparent 72%), radial-gradient(90px 50px at 88% 30%, rgba(38,25,11,0.55), transparent 72%), radial-gradient(140px 70px at 78% 74%, rgba(38,25,11,0.6), transparent 72%), radial-gradient(70px 40px at 60% 66%, rgba(38,25,11,0.58), transparent 72%), radial-gradient(46px 30px at 92% 62%, rgba(38,25,11,0.6), transparent 72%), radial-gradient(100px 56px at 58% 90%, rgba(38,25,11,0.5), transparent 72%), radial-gradient(34px 22px at 84% 50%, rgba(38,25,11,0.6), transparent 72%), radial-gradient(54px 30px at 66% 38%, rgba(38,25,11,0.5), transparent 72%), radial-gradient(80px 44px at 96% 88%, rgba(38,25,11,0.55), transparent 72%), radial-gradient(30px 20px at 52% 50%, rgba(38,25,11,0.6), transparent 72%), radial-gradient(130px 60px at 30% 30%, rgba(38,25,11,0.5), transparent 72%), radial-gradient(110px 50px at 18% 72%, rgba(38,25,11,0.55), transparent 72%), radial-gradient(60px 30px at 12% 12%, rgba(38,25,11,0.5), transparent 72%), radial-gradient(44px 28px at 36% 88%, rgba(38,25,11,0.55), transparent 72%); }
+.fc-handle { position: absolute; top: 0; bottom: 0; left: var(--x); width: 6px; margin-left: -3px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,.5); pointer-events: none; }
+.fc-handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: var(--porch) linear-gradient(90deg, transparent 22px, var(--ink) 22px 25px, transparent 25px 29px, var(--ink) 29px 32px, transparent 32px); border: 4px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,.45); }
+.fc-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
+.fc-stage:has(.fc-range:focus-visible) { outline: 3px solid var(--brick); outline-offset: 3px; }
+.fc-tag { position: absolute; top: 12px; padding: 5px 10px; font: 700 13px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: rgba(23,34,30,.82); border-radius: 6px; pointer-events: none; }
+.fc-tag-l { left: 12px; }
+.fc-tag-r { right: 12px; }
+.fc-note { position: absolute; right: 12px; bottom: 12px; padding: 4px 8px; font: 700 12px/1 var(--sans); color: #fff; background: rgba(23,34,30,.82); border-radius: 5px; pointer-events: none; }
+.fc-picks { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 14px; }
+.fc-pick { font: 700 15px/1.1 var(--sans); padding: 11px 4px; color: var(--ink); background: #fff; border: 2px solid var(--ink); border-radius: 10px; cursor: pointer; }
+.fc-pick:hover { color: var(--brick); border-color: var(--brick); }
+.fc-pick[aria-pressed="true"] { color: #fff; background: var(--brick); border-color: var(--brick); }
+.fc-pick:focus-visible { outline: 3px solid var(--brick); outline-offset: 2px; }
+.fc-panels { display: flex; }
+.fc-panel { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 24px; background: #fff; border-radius: 14px; border-top: 8px solid var(--brick); box-shadow: 0 14px 30px rgba(23,34,30,.14); }
+.fc-panel + .fc-panel { margin-left: 14px; }
+.js .fc-panel:not(.fc-on) { display: none; }
+.js .fc-panel + .fc-panel { margin-left: 0; }
+.fc-panel h3 { margin: 0 0 12px; font: 800 clamp(25px, 2.5vw, 32px)/1.1 var(--display); }
+.fc-panel p { margin: 0 0 18px; font-size: 19px; }
+.fc-panel p a { color: #7F2F1B; font-weight: 700; }
+.fc-panel .fc-lab { margin: 0 0 3px; font: 700 13px/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #7F2F1B; }
+.fc-pcta { display: grid; gap: 10px; margin-top: auto; }
+.fc-panel a.fc-btn { display: flex; justify-content: center; align-items: center; color: var(--ink); text-align: center; }
+.fc-panel button.fc-btn { width: 100%; }
+.fc-steps-sec { padding: 84px 0 92px; color: #F4ECDD; background: var(--bayou); }
+.fc-steps-sec .eyebrow { color: var(--porch); }
+.fc-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 6px; background: #8E8A7E; border-radius: 10px; }
+.fc-tile { position: relative; padding: 28px 26px 30px; overflow: hidden; color: var(--ink); background: #F1ECE2; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.6); }
+.fc-num { position: absolute; right: 14px; bottom: -22px; font: 800 120px/1 var(--display); color: #E2DACB; }
+.fc-tile h3, .fc-tile p { position: relative; }
+.fc-tile h3 { margin: 0 0 8px; font: 800 25px/1.15 var(--display); }
+.fc-tile p { margin: 0; }
+.fc-where-sec { padding: 84px 0 92px; color: #F4ECDD; background: linear-gradient(rgba(14,30,42,.88), rgba(14,30,42,.88)), url(img/floor-cleaning.jpg) center 70% / cover; }
+.fc-where-sec .eyebrow { color: var(--porch); }
+.fc-where { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.fc-spot { padding: 26px; color: var(--ink); background: #F4ECDD; border-radius: 14px; border-left: 8px solid var(--porch); }
+.fc-spot h3 { margin: 0 0 6px; font: 800 28px/1.15 var(--display); }
+.fc-spot p { margin: 0; }
+.fc-spot a { color: #7F2F1B; font-weight: 700; }
+@media (max-width: 1100px) {
+  .fc-layout { grid-template-columns: 1fr; }
+  .fc-panels { display: block; }
+}
+@media (max-width: 700px) {
+  .fc-sec, .fc-steps-sec, .fc-where-sec { padding: 60px 0 66px; }
+  .fc-picks { grid-template-columns: 1fr 1fr; }
+  .fc-pick:last-child { grid-column: 1 / -1; }
+  .fc-tiles, .fc-where { grid-template-columns: 1fr; }
+}

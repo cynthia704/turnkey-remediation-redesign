@@ -437,6 +437,25 @@
     tally();
   })();
 
+  // Floor cleaning: pick a floor type; dragging the slider wipes the illustrated floor clean.
+  (function () {
+    var stage = document.getElementById('fcStage');
+    if (!stage) return;
+    var range = document.getElementById('fcRange'), picks = [].slice.call(document.querySelectorAll('.fc-pick')), panels = [].slice.call(document.querySelectorAll('.fc-panel'));
+    function wipe() { stage.style.setProperty('--x', range.value + '%'); }
+    range.addEventListener('input', wipe);
+    picks.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-floor');
+        stage.className = 'fc-stage fc-' + k + '-f';
+        picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        panels.forEach(function (p) { p.classList.toggle('fc-on', p.getAttribute('data-floor') === k); });
+        range.value = 50; wipe();
+      });
+    });
+    wipe();
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
