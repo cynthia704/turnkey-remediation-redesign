@@ -687,3 +687,7 @@ header.nav.stuck .brand img { height: 50px; }
 .hm-room[aria-pressed="true"] .hm-ico { color: #F2B84B; }
 .dry-sec { background: #E3E8DA; }
 @media (max-width: 520px) { .hm-ico { width: 26px; height: 26px; } }
+/* mold page: photo backgrounds; the tints keep the headings readable */
+.dd-sec { background: linear-gradient(180deg, rgba(244,236,221,.92) 0%, rgba(244,236,221,.76) 55%, rgba(244,236,221,.84) 100%), url("img/mold-spots-bg.jpg") center / cover no-repeat; }
+.dry-sec { background: linear-gradient(180deg, rgba(227,232,218,.93) 0%, rgba(227,232,218,.8) 55%, rgba(227,232,218,.88) 100%), url("img/clean-office-bg.jpg") center / cover no-repeat; }
+.dry-sec .lede { color: #3F4B45; }
