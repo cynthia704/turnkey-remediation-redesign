@@ -1247,7 +1247,7 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 .js .rw-panel + .rw-panel { margin-top: 0; }
 .rw-panel h3 { margin: 0 0 12px; font: 800 clamp(25px, 2.5vw, 32px)/1.1 var(--display); }
 .rw-panel p { margin: 0 0 14px; }
-.rw-call { display: block; margin-top: 4px; text-align: center; }
+.rw-panel a.rw-call { display: flex; justify-content: center; align-items: center; margin-top: 4px; color: var(--ink); text-align: center; }
 .rw-panel a { color: #7F2F1B; font-weight: 700; }
 .rw-panel .rw-lab { margin: 0 0 2px; font: 700 13px/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #1F5A78; }
 .rw-clip-sec { padding: 84px 0 92px; color: #F4ECDD; background: linear-gradient(rgba(14,30,42,.88), rgba(14,30,42,.88)), url(img/water-wall-bg.jpg) center / cover; }
