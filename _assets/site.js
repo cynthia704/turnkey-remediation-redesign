@@ -414,6 +414,29 @@
     set(1);
   })();
 
+  // Air duct: parts of the air path pick a panel; the quick check counts what's ticked.
+  (function () {
+    var parts = [].slice.call(document.querySelectorAll('.ad-part'));
+    if (!parts.length) return;
+    var picks = [].slice.call(document.querySelectorAll('.ad-pick')), panels = [].slice.call(document.querySelectorAll('.ad-panel'));
+    function choose(k) {
+      parts.forEach(function (p) { p.classList.toggle('ad-lit', p.getAttribute('data-part') === k); });
+      picks.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-part') === k ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('ad-on', p.getAttribute('data-part') === k); });
+    }
+    parts.forEach(function (p) { p.addEventListener('click', function () { choose(p.getAttribute('data-part')); }); });
+    picks.forEach(function (b) { b.addEventListener('click', function () { choose(b.getAttribute('data-part')); }); });
+    choose('return');
+    var boxes = [].slice.call(document.querySelectorAll('.ad-sign input')), bar = document.getElementById('adBar'), result = document.getElementById('adResult');
+    function tally() {
+      var n = boxes.filter(function (x) { return x.checked; }).length;
+      bar.style.width = (n / boxes.length * 100) + '%';
+      result.textContent = n === 0 ? 'Nothing ticked yet.' : n === 1 ? 'One sign. Keep an eye on it, or call and ask.' : n + ' signs. Worth having them looked at.';
+    }
+    boxes.forEach(function (x) { x.addEventListener('change', tally); });
+    tally();
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
