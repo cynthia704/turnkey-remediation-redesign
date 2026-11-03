@@ -619,3 +619,6 @@ header.nav.stuck .brand img { height: 50px; }
   .wl-do { font-size: 18px; }
   .jars { grid-template-columns: 1fr; }
 }
+/* water page: moisture-damaged wall behind "From Wet to Dry"; the tint keeps the heading readable */
+.ms-sec { background: linear-gradient(180deg, rgba(234,223,203,.9) 0%, rgba(234,223,203,.74) 45%, rgba(234,223,203,.84) 100%), url("img/water-wall-bg.jpg") center / cover no-repeat; }
+.ms-sec .lede { color: #3F4B45; }
