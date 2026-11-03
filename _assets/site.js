@@ -205,6 +205,23 @@
     });
   })();
 
+  // Service Areas: region buttons light up that region's towns on the map; on phones the map starts centered near New Orleans.
+  (function () {
+    var map = document.querySelector('.sa-map'), chips = [].slice.call(document.querySelectorAll('.sa-chip'));
+    if (!map) return;
+    var pins = [].slice.call(map.querySelectorAll('.sa-pin'));
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        var was = c.getAttribute('aria-pressed') === 'true', r = c.getAttribute('data-region');
+        chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c && !was); });
+        if (was) map.removeAttribute('data-region'); else map.setAttribute('data-region', r);
+        pins.forEach(function (p) { p.classList.toggle('hit', !was && p.getAttribute('data-region') === r); });
+      });
+    });
+    var sc = document.getElementById('saScroll');
+    if (sc && sc.scrollWidth > sc.clientWidth) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) * 0.62;
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');

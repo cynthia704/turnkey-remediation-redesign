@@ -691,3 +691,78 @@ header.nav.stuck .brand img { height: 50px; }
 .dd-sec { background: linear-gradient(180deg, rgba(244,236,221,.92) 0%, rgba(244,236,221,.76) 55%, rgba(244,236,221,.84) 100%), url("img/mold-spots-bg.jpg") center / cover no-repeat; }
 .dry-sec { background: linear-gradient(180deg, rgba(227,232,218,.93) 0%, rgba(227,232,218,.8) 55%, rgba(227,232,218,.88) 100%), url("img/clean-office-bg.jpg") center / cover no-repeat; }
 .dry-sec .lede { color: #3F4B45; }
+/* ---------- service areas page ---------- */
+/* night map hero: every town is a porch light */
+.sa-hero { min-height: 0; padding: 0; align-items: stretch; background: radial-gradient(70% 90% at 72% 40%, #17354A 0%, var(--sky) 72%); }
+.sa-hero::before { display: none; }
+.sa-grid { display: grid; grid-template-columns: .72fr 1.28fr; gap: 28px; align-items: center; padding: 124px 0 54px; }
+.sa-grid > * { min-width: 0; }
+.hero .sa-grid .copy { padding: 0; max-width: none; }
+.sa-hero h1 { font-size: clamp(36px, 4.2vw, 58px); }
+.sa-map-scroll { border-radius: 16px; border: 1px solid rgba(244,236,221,.14); background: rgba(8,20,30,.55); overflow: hidden; }
+.sa-map { display: block; width: 100%; height: auto; font-family: var(--sans); }
+.sa-lake { fill: #1F4A63; stroke: rgba(160,205,230,.35); stroke-width: 2; }
+.sa-river { fill: none; stroke: #2B6A8C; stroke-width: 9; stroke-linecap: round; }
+.sa-water { fill: #9CC7DE; font-size: 17px; font-style: italic; }
+.sa-home circle { fill: #F4ECDD; }
+.sa-home text { fill: #F4ECDD; font: 800 20px var(--display); paint-order: stroke; stroke: #0E1E2A; stroke-width: 4px; }
+.sa-pin text { fill: #F4ECDD; font-size: 19px; font-weight: 700; paint-order: stroke; stroke: #0E1E2A; stroke-width: 4px; }
+.sa-dot { fill: var(--porch); filter: drop-shadow(0 0 7px rgba(242,184,75,.95)); transition: r .2s; }
+.sa-ring { fill: none; stroke: var(--porch); stroke-width: 3; transform-box: fill-box; transform-origin: center; animation: saPulse 2.6s ease-out infinite; }
+@keyframes saPulse { from { opacity: .85; transform: scale(1); } to { opacity: 0; transform: scale(2.3); } }
+.sa-pin:hover .sa-dot, .sa-pin:focus .sa-dot { r: 13; }
+.sa-pin:hover text, .sa-pin:focus text { fill: var(--porch); }
+.sa-pin:focus-visible { outline: none; }
+.sa-pin:focus-visible text { text-decoration: underline; }
+.sa-map[data-region] .sa-pin { opacity: .22; transition: opacity .25s; }
+.sa-map[data-region] .sa-pin.hit { opacity: 1; }
+.sa-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.sa-chip { border: 1px solid rgba(244,236,221,.4); background: transparent; color: #F4ECDD; border-radius: 999px; padding: 8px 14px; font: 700 14px var(--sans); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.sa-chip:hover { border-color: var(--porch); }
+.sa-chip[aria-pressed="true"] { background: var(--porch); border-color: var(--porch); color: var(--ink); }
+.sa-chip:focus-visible, .sa-map-scroll:focus-visible { outline: 3px solid var(--porch); outline-offset: 2px; }
+.sa-note { margin: 10px 0 0; font-size: 14px; color: #AFC0BA; }
+/* street-sign posts */
+.sa-posts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; align-items: stretch; }
+.sa-post { position: relative; display: flex; flex-direction: column; align-items: center; padding-bottom: 30px; }
+.sa-post::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 10px; margin-left: -5px; background: linear-gradient(90deg, #8B8F8C, #C9CCCA 45%, #7E8280); border-radius: 5px 5px 0 0; }
+.sa-post::after { content: ""; position: absolute; bottom: 0; left: 50%; width: 76px; height: 12px; margin-left: -38px; background: #7E8280; border-radius: 4px; }
+.sa-post h3 { position: relative; margin: 0 0 22px; width: 100%; min-height: 62px; display: grid; place-items: center; text-align: center; font-family: var(--display); font-weight: 700; font-size: 17px; line-height: 1.2; color: #fff; background: var(--brick); border-radius: 8px; padding: 8px 10px; }
+.sa-signs { position: relative; display: grid; gap: 14px; width: 100%; justify-items: center; }
+a.blade { display: block; width: 100%; text-align: center; font-size: 17px; padding: 8px 6px; text-decoration: none; transition: transform .2s, background .2s; }
+a.blade:hover, a.blade:focus-visible { background: var(--brick); box-shadow: 0 0 0 2px var(--brick), 0 6px 14px rgba(23,34,30,.2); transform: scale(1.05); outline: none; }
+/* photo tiles */
+.sa-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.sa-tile { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: 16px; overflow: hidden; color: #fff; text-decoration: none; background: var(--ink); }
+.sa-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.sa-tile:hover img { transform: scale(1.07); }
+.sa-tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,30,42,.08) 30%, rgba(14,30,42,.92) 100%); }
+.sa-tile .stock { left: 10px; top: 10px; bottom: auto; }
+.sa-tile-txt { position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 1; font-size: 16px; line-height: 1.4; }
+.sa-tile-txt h3 { font-family: var(--display); font-weight: 800; font-size: 25px; line-height: 1.15; margin: 0 0 4px; }
+.sa-tile:focus-visible { outline: 3px solid var(--porch); outline-offset: 3px; }
+/* ask band */
+.sa-ask { background: var(--bayou); color: #F4ECDD; text-align: center; padding: 76px 0; }
+.sa-ask .lede { color: #C9D6CF; margin: 0 auto 26px; }
+.sa-ask .ctas { justify-content: center; }
+@media (max-width: 1100px) {
+  .sa-grid { grid-template-columns: 1fr; padding: 112px 0 44px; }
+  .sa-posts { grid-template-columns: repeat(6, 1fr); row-gap: 28px; }
+  .sa-post { grid-column: span 2; }
+  .sa-post:nth-last-child(-n+2) { grid-column: span 3; }
+  .sa-tiles { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .sa-map-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .sa-map { width: 720px; max-width: none; }
+  .sa-posts { grid-template-columns: 1fr 1fr; }
+  .sa-post, .sa-post:nth-last-child(-n+2) { grid-column: auto; }
+  .sa-post:last-child { grid-column: 1 / -1; }
+  .sa-post:last-child .sa-signs { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+  .sa-tile { aspect-ratio: 1 / 1; }
+  .sa-tile-txt h3 { font-size: 21px; }
+  .sa-tile-txt { font-size: 15px; left: 12px; right: 12px; bottom: 12px; }
+}
+.sa-tile-txt p { margin: 0; }
