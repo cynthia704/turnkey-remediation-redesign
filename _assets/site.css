@@ -1216,7 +1216,6 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 }
 
 /* Residential Water */
-.rw-hero h1 { font-size: clamp(32px, 4vw, 52px); text-wrap: balance; }
 .rw-house-sec { padding: 84px 0 92px; background: var(--cream); }
 .rw-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: start; }
 .rw-layout > * { min-width: 0; }
@@ -1302,7 +1301,6 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 }
 
 /* Fire and Smoke */
-.fs-hero h1 { font-size: clamp(32px, 4vw, 52px); text-wrap: balance; }
 .fs-plan-sec { padding: 84px 0 92px; color: #F4ECDD; background: #17221E; }
 .fs-plan-sec .eyebrow { color: var(--porch); }
 .fs-plan-sec .lede { color: #DDE4DE; }
@@ -1383,4 +1381,22 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 }
 @media (prefers-reduced-motion: reduce) {
   .fs-smoke, .fs-vents, .fs-room text, .fs-cause { transition: none; }
+}
+
+/* Service page hero: short, with text running the full width */
+.hero.svc-hero { min-height: 0; align-items: stretch; }
+.hero.svc-hero::before { background: linear-gradient(180deg, rgba(11,24,34,.9) 0%, rgba(11,24,34,.8) 100%); }
+.hero.svc-hero .wrap { width: min(1180px, 100% - 32px); }
+.hero.svc-hero .copy { max-width: none; padding: 112px 0 36px; }
+.hero.svc-hero .crumbs { margin-bottom: 10px; }
+.hero.svc-hero .eyebrow { margin-bottom: 8px; }
+.hero.svc-hero h1 { max-width: none; margin-bottom: 12px; font-size: clamp(30px, 3.4vw, 46px); }
+.hero.svc-hero .hero-sub { max-width: none; margin-bottom: 20px; font-size: 19px; opacity: 1; }
+.hero.svc-hero .stock { bottom: 10px; }
+@media (max-width: 700px) {
+  .hero.svc-hero .copy { padding: 92px 0 38px; }
+  .hero.svc-hero h1 { font-size: 27px; line-height: 1.1; }
+  .hero.svc-hero .hero-sub { margin-bottom: 16px; font-size: 17px; line-height: 1.45; }
+  .hero.svc-hero .ctas { gap: 8px; }
+  .hero.svc-hero .ctas .btn { flex: 1 1 100%; padding-top: 12px; padding-bottom: 12px; }
 }
