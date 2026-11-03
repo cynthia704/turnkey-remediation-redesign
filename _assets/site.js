@@ -308,6 +308,55 @@
     });
   })();
 
+  // Gallery: pause the reel, filter the wall, and page through photos in a larger view.
+  (function () {
+    var box = document.getElementById('glBox');
+    if (!box) return;
+    var pause = document.getElementById('glPause'), chips = [].slice.call(document.querySelectorAll('.gl-chip')), items = [].slice.call(document.querySelectorAll('.gl-item')), count = document.getElementById('glCount');
+    var img = document.getElementById('glImg'), title = document.getElementById('glBoxTitle'), num = document.getElementById('glNum'), go = document.getElementById('glGo'), at = 0;
+    pause.addEventListener('click', function () {
+      var on = pause.parentNode.classList.toggle('paused');
+      pause.setAttribute('aria-pressed', on ? 'true' : 'false');
+      pause.textContent = on ? 'Play the Reel' : 'Pause the Reel';
+    });
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        var k = c.getAttribute('data-kind'), n = 0;
+        chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+        items.forEach(function (d) {
+          var show = k === 'all' || d.getAttribute('data-kind') === k;
+          d.hidden = !show;
+          if (show) n++;
+        });
+        document.querySelector('.gl-wall').classList.toggle('gl-some', k !== 'all');
+        count.textContent = n + (n === 1 ? ' photo' : ' photos') + ' shown';
+      });
+    });
+    function shown() { return items.filter(function (d) { return !d.hidden; }); }
+    function show(d) {
+      var list = shown(), t = d.querySelector('figcaption').textContent;
+      at = list.indexOf(d);
+      img.src = d.getAttribute('data-full');
+      img.alt = t;
+      title.textContent = t;
+      num.textContent = (at + 1) + ' of ' + list.length;
+      go.href = d.getAttribute('data-link');
+      go.textContent = d.getAttribute('data-label');
+    }
+    function step(n) { var list = shown(); show(list[(at + n + list.length) % list.length]); }
+    items.forEach(function (d) {
+      d.querySelector('.gl-open').addEventListener('click', function () { show(d); box.showModal(); });
+    });
+    document.getElementById('glPrev').addEventListener('click', function () { step(-1); });
+    document.getElementById('glNext').addEventListener('click', function () { step(1); });
+    document.getElementById('glX').addEventListener('click', function () { box.close(); });
+    box.addEventListener('click', function (e) { if (e.target === box) box.close(); });
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
