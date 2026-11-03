@@ -222,6 +222,24 @@
     if (sc && sc.scrollWidth > sc.clientWidth) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) * 0.62;
   })();
 
+  // About: the key turns and the door opens on load, on hover and from the button.
+  (function () {
+    var stage = document.getElementById('abStage'), btn = document.getElementById('abTurn');
+    if (!stage || !btn) return;
+    function set(open) {
+      stage.classList.toggle('open', open);
+      btn.setAttribute('aria-pressed', open ? 'true' : 'false');
+      btn.textContent = open ? 'Close the Door' : 'Turn the Key';
+    }
+    btn.addEventListener('click', function () { set(!stage.classList.contains('open')); });
+    if (window.matchMedia('(hover: hover)').matches) {
+      stage.addEventListener('mouseenter', function () { set(true); });
+      stage.addEventListener('mouseleave', function () { set(false); });
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) set(true);
+    else setTimeout(function () { set(true); }, 1200);
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
