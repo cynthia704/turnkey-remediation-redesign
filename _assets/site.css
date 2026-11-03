@@ -1216,7 +1216,7 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 }
 
 /* Residential Water */
-.rw-hero h1 { font-size: clamp(32px, 4vw, 52px); }
+.rw-hero h1 { font-size: clamp(32px, 4vw, 52px); text-wrap: balance; }
 .rw-house-sec { padding: 84px 0 92px; background: var(--cream); }
 .rw-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: start; }
 .rw-layout > * { min-width: 0; }
