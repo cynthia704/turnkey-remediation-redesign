@@ -1391,6 +1391,10 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 .hero.svc-hero .crumbs { margin-bottom: 10px; }
 .hero.svc-hero .eyebrow { margin-bottom: 8px; }
 .hero.svc-hero h1 { max-width: none; margin-bottom: 12px; font-size: clamp(30px, 3.4vw, 46px); }
+.h1-keep { white-space: nowrap; }
+@media (min-width: 701px) {
+  .h1-next { display: block; }
+}
 .hero.svc-hero .hero-sub { max-width: none; margin-bottom: 20px; font-size: 19px; opacity: 1; }
 .hero.svc-hero .stock { bottom: 10px; }
 @media (max-width: 700px) {
