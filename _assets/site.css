@@ -1217,7 +1217,8 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 
 /* Residential Water */
 .rw-house-sec { padding: 84px 0 92px; background: var(--cream); }
-.rw-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: start; }
+.rw-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: stretch; }
+.js .rw-panels { display: flex; }
 .rw-layout > * { min-width: 0; }
 .rw-house { display: block; width: 100%; height: auto; }
 .rw-roof { fill: #3A2A20; }
@@ -1241,13 +1242,15 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 .rw-pick:hover { color: var(--brick); border-color: var(--brick); }
 .rw-pick[aria-pressed="true"] { color: #fff; background: #1F5A78; border-color: #1F5A78; }
 .rw-pick:focus-visible { outline: 3px solid var(--brick); outline-offset: 2px; }
-.rw-panel { padding: 24px 24px 26px; background: #fff; border-radius: 14px; border-top: 8px solid #1F5A78; box-shadow: 0 14px 30px rgba(23,34,30,.14); }
+.rw-panel { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 24px 24px 26px; background: #fff; border-radius: 14px; border-top: 8px solid #1F5A78; box-shadow: 0 14px 30px rgba(23,34,30,.14); }
 .rw-panel + .rw-panel { margin-top: 14px; }
 .js .rw-panel:not(.rw-on) { display: none; }
 .js .rw-panel + .rw-panel { margin-top: 0; }
 .rw-panel h3 { margin: 0 0 12px; font: 800 clamp(25px, 2.5vw, 32px)/1.1 var(--display); }
 .rw-panel p { margin: 0 0 14px; }
-.rw-panel a.rw-call { display: flex; justify-content: center; align-items: center; margin-top: 4px; color: var(--ink); text-align: center; }
+.rw-panel a.rw-call { display: flex; justify-content: center; align-items: center; color: var(--ink); text-align: center; }
+.rw-panel button.rw-call { width: 100%; }
+.rw-pcta { display: grid; gap: 10px; margin-top: auto; }
 .rw-panel a { color: #7F2F1B; font-weight: 700; }
 .rw-panel .rw-lab { margin: 0 0 2px; font: 700 13px/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #1F5A78; }
 .rw-clip-sec { padding: 84px 0 92px; color: #F4ECDD; background: linear-gradient(rgba(14,30,42,.88), rgba(14,30,42,.88)), url(img/water-wall-bg.jpg) center / cover; }
@@ -1286,6 +1289,7 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 .rw-ctxt strong { display: block; font: 700 20px/1.2 var(--display); color: var(--ink); }
 @media (max-width: 1100px) {
   .rw-layout, .rw-clip-grid, .rw-list-grid { grid-template-columns: 1fr; }
+  .js .rw-panels { display: block; }
 }
 @media (max-width: 700px) {
   .rw-house-sec, .rw-clip-sec, .rw-type-sec, .rw-list-sec { padding: 60px 0 66px; }
@@ -1679,6 +1683,7 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 .cp-next { align-self: flex-start; margin-bottom: 18px; padding: 0; font: 700 17px/1.2 var(--sans); color: #7F2F1B; text-decoration: underline; background: none; border: 0; cursor: pointer; }
 html:not(.js) .cp-next { display: none; }
 .cp-next:focus-visible { outline: 3px solid var(--brick); outline-offset: 3px; }
+.cp-panel > p.cp-lab { margin: 0 0 3px; font: 700 13px/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #7F2F1B; }
 .cp-pcta { display: grid; gap: 10px; margin-top: auto; }
 .cp-panel a.cp-btn { display: flex; justify-content: center; align-items: center; color: var(--ink); text-align: center; }
 .cp-panel button.cp-btn { width: 100%; }
@@ -1794,4 +1799,17 @@ a.cc-urg:focus-visible { outline: 3px solid var(--porch); outline-offset: 3px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cc-item, .cc-hang, a.cc-urg { transition: none; }
+}
+
+/* Side panels: spare height spreads between the label groups */
+.rw-panel p, .fs-panel p, .ad-panel p, .fc-panel p, .cw-panel p, .cp-panel p { text-wrap: pretty; }
+@media (max-width: 1240px) {
+  .rw-layout, .fs-layout, .ad-layout, .fc-layout, .cw-layout, .cp-layout { grid-template-columns: 1fr; }
+  .js .rw-panels, .fs-panels, .ad-panels, .fc-panels, .cw-panels, .cp-panels { display: block; }
+}
+@media (min-width: 1241px) {
+  .rw-left, .fs-left, .ad-left, .fc-left, .cw-left, .cp-left { display: flex; flex-direction: column; }
+  .rw-picks, .fs-slide, .ad-picks, .fc-picks, .cw-picks, .cp-stops { margin-top: auto; padding-top: 14px; }
+  .rw-panel p.rw-lab ~ p.rw-lab, .fs-panel p.fs-lab ~ p.fs-lab, .ad-panel p.ad-lab ~ p.ad-lab, .fc-panel p.fc-lab ~ p.fc-lab, .cw-panel p.cw-lab ~ p.cw-lab, .cp-panel > p.cp-lab { margin-top: auto; }
+  .cp-next { margin-top: auto; }
 }
