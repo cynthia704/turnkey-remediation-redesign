@@ -472,6 +472,29 @@
     choose('upper');
   })();
 
+  // Carpet: steps through the cutaway; the stain buttons pick what to do right now.
+  (function () {
+    var svg = document.getElementById('cpSvg');
+    if (!svg) return;
+    var stops = [].slice.call(document.querySelectorAll('.cp-stop')), panels = [].slice.call(document.querySelectorAll('.cp-panel')), at = 1;
+    function go(n) {
+      at = n;
+      svg.setAttribute('data-s', n);
+      stops.forEach(function (b) { b.setAttribute('aria-pressed', +b.getAttribute('data-s') === n ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('cp-on', +p.getAttribute('data-s') === n); });
+    }
+    stops.forEach(function (b) { b.addEventListener('click', function () { go(+b.getAttribute('data-s')); }); });
+    [].forEach.call(document.querySelectorAll('.cp-next'), function (b) { b.addEventListener('click', function () { go(at === 5 ? 1 : at + 1); }); });
+    var spots = [].slice.call(document.querySelectorAll('.cp-spot')), cards = [].slice.call(document.querySelectorAll('.cp-card'));
+    spots.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-stain');
+        spots.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        cards.forEach(function (c) { c.classList.toggle('cp-on', c.getAttribute('data-stain') === k); });
+      });
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');

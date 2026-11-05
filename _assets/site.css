@@ -1392,7 +1392,7 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 .hero.svc-hero .eyebrow { margin-bottom: 8px; }
 .hero.svc-hero h1 { max-width: none; margin-bottom: 12px; font-size: clamp(30px, 3.4vw, 46px); text-wrap: pretty; }
 .h1-keep { white-space: nowrap; }
-@media (min-width: 701px) {
+@media (min-width: 760px) {
   .h1-next { display: block; }
 }
 .hero.svc-hero .hero-sub { max-width: none; margin-bottom: 20px; font-size: 19px; opacity: 1; }
@@ -1636,4 +1636,89 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 @media (prefers-reduced-motion: reduce) {
   .cw-level.cw-lit .cw-drip { animation: none; }
   .cw-water, .cw-bg { transition: none; }
+}
+
+/* Carpet Cleaning */
+.cp-how-sec { padding: 84px 0 92px; color: #F4ECDD; background: #17354A; }
+.cp-how-sec .eyebrow { color: var(--porch); }
+.cp-how-sec .lede { color: #DDE4DE; }
+.cp-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: stretch; }
+.cp-layout > * { min-width: 0; }
+.cp-svg { display: block; width: 100%; height: auto; }
+.cp-fiber { fill: none; stroke: #9EA9AD; stroke-width: 8; stroke-linecap: round; transition: stroke .5s; }
+.cp-svg[data-s="5"] .cp-fiber { stroke: #D7E0E2; }
+.cp-top, .cp-deep { fill: #6B4A2A; stroke: #2A1C0E; stroke-width: 1; transition: opacity .6s, transform .7s; }
+.cp-svg[data-s="2"] .cp-top, .cp-svg[data-s="3"] .cp-top, .cp-svg[data-s="4"] .cp-top, .cp-svg[data-s="5"] .cp-top { opacity: 0; }
+.cp-svg[data-s="3"] .cp-deep { transform: translateY(-24px); }
+.cp-svg[data-s="4"] .cp-deep, .cp-svg[data-s="5"] .cp-deep { opacity: 0; transform: translateY(-70px); }
+.cp-tool { opacity: 0; transition: opacity .35s; }
+.cp-svg[data-s="1"] .cp-glass, .cp-svg[data-s="2"] .cp-wand, .cp-svg[data-s="3"] .cp-treat, .cp-svg[data-s="4"] .cp-wand, .cp-svg[data-s="4"] .cp-flows, .cp-svg[data-s="5"] .cp-air { opacity: 1; }
+.cp-hot, .cp-out, .cp-breeze { fill: none; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 2 18; animation: cpflow 1s linear infinite; }
+.cp-hot { stroke: #F08A4B; }
+.cp-out { stroke: #A8855A; }
+.cp-breeze { stroke: #F4ECDD; }
+@keyframes cpflow { to { stroke-dashoffset: -20; } }
+.cp-fan { transform-box: fill-box; transform-origin: center; animation: cpspin 1.4s linear infinite; }
+@keyframes cpspin { to { transform: rotate(360deg); } }
+.cp-t1 { font: 700 19px/1 var(--sans); fill: #F4ECDD; }
+.cp-stops { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 14px; }
+.cp-stop { font: 700 15px/1.1 var(--sans); padding: 11px 4px; color: #F4ECDD; background: transparent; border: 2px solid rgba(244,236,221,.55); border-radius: 10px; cursor: pointer; }
+.cp-stop b { color: var(--porch); }
+.cp-stop:hover { color: var(--porch); border-color: var(--porch); }
+.cp-stop[aria-pressed="true"] { color: var(--ink); background: var(--porch); border-color: var(--porch); }
+.cp-stop[aria-pressed="true"] b { color: var(--ink); }
+.cp-stop:focus-visible { outline: 3px solid var(--porch); outline-offset: 2px; }
+.cp-panels { display: flex; }
+.cp-panel { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 24px; color: var(--ink); background: #F4ECDD; border-radius: 14px; border-top: 8px solid var(--porch); }
+.cp-panel + .cp-panel { margin-left: 14px; }
+.js .cp-panel:not(.cp-on) { display: none; }
+.js .cp-panel + .cp-panel { margin-left: 0; }
+.cp-of { margin: 0 0 4px; font: 700 13px/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #7F2F1B; }
+.cp-panel h3 { margin: 0 0 10px; font: 800 clamp(25px, 2.5vw, 32px)/1.1 var(--display); }
+.cp-panel > p:not(.cp-of) { margin: 0 0 16px; font-size: 19px; }
+.cp-next { align-self: flex-start; margin-bottom: 18px; padding: 0; font: 700 17px/1.2 var(--sans); color: #7F2F1B; text-decoration: underline; background: none; border: 0; cursor: pointer; }
+html:not(.js) .cp-next { display: none; }
+.cp-next:focus-visible { outline: 3px solid var(--brick); outline-offset: 3px; }
+.cp-pcta { display: grid; gap: 10px; margin-top: auto; }
+.cp-panel a.cp-btn { display: flex; justify-content: center; align-items: center; color: var(--ink); text-align: center; }
+.cp-panel button.cp-btn { width: 100%; }
+.cp-stain-sec { padding: 84px 0 92px; background: var(--cream); }
+.cp-spots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.cp-spot { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 8px; font: 700 16px/1.15 var(--sans); color: var(--ink); background: #fff; border: 2px solid var(--line); border-radius: 12px; cursor: pointer; }
+.cp-spot:hover { border-color: var(--brick); }
+.cp-spot[aria-pressed="true"] { border-color: var(--brick); box-shadow: inset 0 0 0 2px var(--brick); }
+.cp-spot:focus-visible { outline: 3px solid var(--brick); outline-offset: 2px; }
+.cp-swatch { position: relative; display: block; width: 100%; height: 84px; overflow: hidden; border-radius: 8px; background: radial-gradient(rgba(255,255,255,.22) 1px, transparent 1.4px) 0 0 / 6px 6px, radial-gradient(rgba(0,0,0,.18) 1px, transparent 1.4px) 3px 3px / 6px 6px, #9AA6A8; }
+.cp-swatch::after { content: ""; position: absolute; left: 50%; top: 50%; width: 62px; height: 46px; margin: -23px 0 0 -31px; background: var(--stain); border-radius: 58% 42% 55% 45% / 48% 60% 40% 52%; opacity: .85; rotate: -12deg; }
+.cp-cards { margin-top: 14px; }
+.cp-card { padding: 24px 26px; background: #fff; border-radius: 14px; border-top: 8px solid var(--brick); box-shadow: 0 12px 26px rgba(23,34,30,.12); }
+.cp-card + .cp-card { margin-top: 14px; }
+.js .cp-card:not(.cp-on) { display: none; }
+.js .cp-card + .cp-card { margin-top: 0; }
+.cp-card h3 { margin: 0 0 10px; font: 800 clamp(24px, 2.4vw, 30px)/1.1 var(--display); }
+.cp-card p { margin: 0 0 12px; font-size: 19px; }
+.cp-card p:last-child { margin-bottom: 0; }
+.cp-card a { color: #7F2F1B; font-weight: 700; }
+.cp-card .cp-lab { margin: 0 0 2px; font: 700 13px/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #7F2F1B; }
+.cp-tips-sec { padding: 84px 0 92px; color: #F4ECDD; background: linear-gradient(rgba(20,52,41,.9), rgba(20,52,41,.9)), url(img/carpet-wand-800.jpg) center / cover; }
+.cp-tips-sec .eyebrow { color: var(--porch); }
+.cp-tips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.cp-tip { padding: 24px; color: var(--ink); background: #F4ECDD; border-radius: 14px; border-left: 8px solid var(--porch); }
+.cp-tip h3 { margin: 0 0 6px; font: 800 24px/1.15 var(--display); }
+.cp-tip p { margin: 0; }
+@media (max-width: 1100px) {
+  .cp-layout { grid-template-columns: 1fr; }
+  .cp-panels { display: block; }
+}
+@media (max-width: 700px) {
+  .cp-how-sec, .cp-stain-sec, .cp-tips-sec { padding: 60px 0 66px; }
+  .cp-t1 { font-size: 26px; }
+  .cp-stops, .cp-spots { grid-template-columns: 1fr 1fr; }
+  .cp-stop:last-child, .cp-spot:last-child { grid-column: 1 / -1; }
+  .cp-tips { grid-template-columns: 1fr; }
+  .cp-swatch { height: 62px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cp-hot, .cp-out, .cp-breeze, .cp-fan { animation: none; }
+  .cp-tool, .cp-top, .cp-deep, .cp-fiber { transition: none; }
 }
