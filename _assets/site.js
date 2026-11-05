@@ -495,6 +495,39 @@
     });
   })();
 
+  // Commercial cleaning: tapped items build a list, and sending it fills the estimate form.
+  (function () {
+    var send = document.getElementById('ccSend');
+    if (!send) return;
+    var items = [].slice.call(document.querySelectorAll('.cc-item')), list = document.getElementById('ccList'), count = document.getElementById('ccCount');
+    function chosen() { return items.filter(function (b) { return b.getAttribute('aria-pressed') === 'true'; }); }
+    function draw() {
+      var on = chosen();
+      list.textContent = '';
+      on.forEach(function (b) {
+        var li = document.createElement('li'), link = b.getAttribute('data-link'), name = b.getAttribute('data-item');
+        if (link) { var a = document.createElement('a'); a.href = link; a.textContent = name; li.appendChild(a); } else { li.textContent = name; }
+        list.appendChild(li);
+      });
+      count.textContent = on.length === 0 ? 'Nothing on it yet. Tap what needs cleaning.' : on.length + (on.length === 1 ? ' item' : ' items');
+    }
+    items.forEach(function (b) {
+      b.addEventListener('click', function () {
+        b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        draw();
+      });
+    });
+    send.addEventListener('click', function () {
+      var names = chosen().map(function (b) { return b.getAttribute('data-item'); });
+      [].forEach.call(document.querySelectorAll('#est-form, #ct-form'), function (f) {
+        var svc = f.querySelector('select[name="service"]'), msg = f.querySelector('textarea[name="message"]');
+        svc.value = 'Cleaning';
+        msg.value = names.length ? 'Commercial cleaning estimate for: ' + names.join(', ') + '.' : '';
+      });
+    });
+    draw();
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
