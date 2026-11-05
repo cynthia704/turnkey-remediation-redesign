@@ -1754,7 +1754,9 @@ html:not(.js) .cp-next { display: none; }
 .cc-pcta { display: grid; gap: 8px; }
 .cc-note .cc-send, .cc-note .cc-btn { width: 100%; justify-content: center; text-align: center; }
 .cc-note a.cc-btn { display: flex; align-items: center; color: var(--ink); }
-.cc-steps-sec { padding: 84px 0 92px; color: #F4ECDD; background: var(--bayou); }
+.cc-steps-sec { padding: 84px 0 92px; color: #F4ECDD; background: linear-gradient(rgba(20,52,41,.85), rgba(20,52,41,.85)), url(img/floor-cleaning.jpg) center / cover; }
+.cc-steps-sec h2 { text-wrap: balance; }
+.cc-hang p { text-wrap: pretty; }
 .cc-steps-sec .eyebrow { color: var(--porch); }
 .cc-hangs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .cc-hang { position: relative; padding: 86px 24px 26px; color: var(--ink); text-align: center; background: var(--porch); border-radius: 14px; transform-origin: 50% 40px; transition: rotate .3s ease; }
