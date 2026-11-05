@@ -638,6 +638,29 @@
     });
   })();
 
+  // Sanitation: pick what happened; tap an item to see whether it can usually be sanitized.
+  (function () {
+    var scene = document.getElementById('snScene');
+    if (!scene) return;
+    var picks = [].slice.call(document.querySelectorAll('.sn-pick')), panels = [].slice.call(document.querySelectorAll('.sn-panel')), marks = [].slice.call(scene.querySelectorAll('.sn-mark'));
+    picks.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-case');
+        picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        panels.forEach(function (p) { p.classList.toggle('sn-on', p.getAttribute('data-case') === k); });
+        marks.forEach(function (m) { m.classList.toggle('sn-lit', m.getAttribute('data-mark') === k); });
+      });
+    });
+    var chips = [].slice.call(document.querySelectorAll('.sn-chip')), vs = [].slice.call(document.querySelectorAll('.sn-v')), item = document.getElementById('snItem');
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+        vs.forEach(function (v) { v.classList.toggle('sn-show', v.getAttribute('data-v') === c.getAttribute('data-v')); });
+        item.textContent = c.textContent;
+      });
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
