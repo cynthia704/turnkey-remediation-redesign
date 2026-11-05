@@ -529,6 +529,21 @@
     draw();
   })();
 
+  // Odor removal: pick a smell to light up where it hides in the room.
+  (function () {
+    var room = document.getElementById('odRoom');
+    if (!room) return;
+    var srcs = [].slice.call(room.querySelectorAll('.od-src')), picks = [].slice.call(document.querySelectorAll('.od-pick')), panels = [].slice.call(document.querySelectorAll('.od-panel'));
+    function choose(b) {
+      var k = b.getAttribute('data-smell'), on = b.getAttribute('data-src').split(' ');
+      srcs.forEach(function (s) { s.classList.toggle('od-lit', on.indexOf(s.getAttribute('data-src')) !== -1); });
+      picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('od-on', p.getAttribute('data-smell') === k); });
+    }
+    picks.forEach(function (b) { b.addEventListener('click', function () { choose(b); }); });
+    choose(picks[0]);
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
