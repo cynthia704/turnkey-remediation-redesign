@@ -560,6 +560,43 @@
     choose(picks[0]);
   })();
 
+  // Ceiling: pick a mark to show it overhead and explain it.
+  (function () {
+    var map = document.getElementById('ceMap');
+    if (!map) return;
+    var marks = [].slice.call(map.querySelectorAll('.ce-mark')), picks = [].slice.call(document.querySelectorAll('.ce-pick')), panels = [].slice.call(document.querySelectorAll('.ce-panel'));
+    function choose(k) {
+      marks.forEach(function (m) { m.classList.toggle('ce-lit', m.getAttribute('data-mark') === k); });
+      picks.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-stain') === k ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('ce-on', p.getAttribute('data-stain') === k); });
+    }
+    picks.forEach(function (b) { b.addEventListener('click', function () { choose(b.getAttribute('data-stain')); }); });
+    choose('water');
+  })();
+
+  // Wall: pick a surface; the quick check shows the most serious thing ticked.
+  (function () {
+    var stage = document.getElementById('waStage');
+    if (!stage) return;
+    var picks = [].slice.call(document.querySelectorAll('.wa-pick')), panels = [].slice.call(document.querySelectorAll('.wa-panel'));
+    picks.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-wall');
+        stage.className = 'wa-stage wa-' + k;
+        picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        panels.forEach(function (p) { p.classList.toggle('wa-on', p.getAttribute('data-wall') === k); });
+      });
+    });
+    var boxes = [].slice.call(document.querySelectorAll('.wa-q input')), res = [].slice.call(document.querySelectorAll('.wa-res'));
+    function show() {
+      var on = boxes.filter(function (x) { return x.checked; }).map(function (x) { return x.getAttribute('data-q'); });
+      var pick = on.indexOf('wet') !== -1 ? 'wet' : on.indexOf('spots') !== -1 ? 'spots' : on.indexOf('dirt') !== -1 ? 'dirt' : 'none';
+      res.forEach(function (r) { r.classList.toggle('wa-show', r.getAttribute('data-res') === pick); });
+    }
+    boxes.forEach(function (x) { x.addEventListener('change', show); });
+    show();
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
