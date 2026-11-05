@@ -504,8 +504,9 @@
     function draw() {
       var on = chosen();
       list.textContent = '';
-      on.forEach(function (b) {
+      items.forEach(function (b) {
         var li = document.createElement('li'), link = b.getAttribute('data-link'), name = b.getAttribute('data-item');
+        if (b.getAttribute('aria-pressed') === 'true') li.className = 'cc-in';
         if (link) { var a = document.createElement('a'); a.href = link; a.textContent = name; li.appendChild(a); } else { li.textContent = name; }
         list.appendChild(li);
       });
