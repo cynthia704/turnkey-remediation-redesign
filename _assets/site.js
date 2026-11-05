@@ -544,6 +544,22 @@
     choose(picks[0]);
   })();
 
+  // Sewage: pick what you're seeing to light the path it took back through the pipes.
+  (function () {
+    var map = document.getElementById('swMap');
+    if (!map) return;
+    var parts = [].slice.call(map.querySelectorAll('[data-seg]')), picks = [].slice.call(document.querySelectorAll('.sw-pick')), panels = [].slice.call(document.querySelectorAll('.sw-panel'));
+    function choose(b) {
+      var k = b.getAttribute('data-case'), on = b.getAttribute('data-seg').split(' ');
+      map.setAttribute('data-case', k);
+      parts.forEach(function (p) { p.classList.toggle('sw-lit', on.indexOf(p.getAttribute('data-seg')) !== -1); });
+      picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('sw-on', p.getAttribute('data-case') === k); });
+    }
+    picks.forEach(function (b) { b.addEventListener('click', function () { choose(b); }); });
+    choose(picks[0]);
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
