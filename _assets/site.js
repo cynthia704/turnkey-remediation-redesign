@@ -456,6 +456,22 @@
     wipe();
   })();
 
+  // Commercial water: pick the floor where it started; that floor and those below it fill.
+  (function () {
+    var levels = [].slice.call(document.querySelectorAll('.cw-level'));
+    if (!levels.length) return;
+    var order = ['roof', 'upper', 'middle', 'ground'], picks = [].slice.call(document.querySelectorAll('.cw-pick')), panels = [].slice.call(document.querySelectorAll('.cw-panel'));
+    function choose(k) {
+      var from = order.indexOf(k);
+      levels.forEach(function (l) { l.classList.toggle('cw-lit', order.indexOf(l.getAttribute('data-level')) >= from); });
+      picks.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-level') === k ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('cw-on', p.getAttribute('data-level') === k); });
+    }
+    levels.forEach(function (l) { l.addEventListener('click', function () { choose(l.getAttribute('data-level')); }); });
+    picks.forEach(function (b) { b.addEventListener('click', function () { choose(b.getAttribute('data-level')); }); });
+    choose('upper');
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
