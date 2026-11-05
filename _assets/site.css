@@ -1356,7 +1356,7 @@ a.bl-row:focus-visible { outline-color: var(--brick); }
 .fs-jobs-sec .lede a { color: #7F2F1B; }
 .fs-jobs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .fs-job { position: relative; padding: 26px 24px; overflow: hidden; background: #fff; border-radius: 14px; box-shadow: 0 10px 22px rgba(23,34,30,.1); }
-.fs-num { position: absolute; right: 12px; top: -14px; font: 800 110px/1 var(--display); color: var(--cream-2); }
+.fs-job .fs-num { position: absolute; right: 12px; top: -14px; font: 800 110px/1 var(--display); color: var(--cream-2); }
 .fs-job h3, .fs-job p { position: relative; }
 .fs-job h3 { margin: 0 0 8px; font: 800 25px/1.15 var(--display); max-width: 82%; }
 .fs-job p { margin: 0; }
