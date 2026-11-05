@@ -1815,12 +1815,10 @@ a.cc-urg:focus-visible { outline: 3px solid var(--porch); outline-offset: 3px; }
 }
 
 /* Odor Removal */
-.od-sec { padding: 84px 0 92px; color: #F4ECDD; background: #2A2133; }
-.od-sec .eyebrow { color: var(--porch); }
-.od-sec .lede { color: #DDE4DE; }
+.od-sec { padding: 84px 0 92px; background: var(--cream); }
 .od-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: stretch; }
 .od-layout > * { min-width: 0; }
-.od-room { display: block; width: 100%; height: auto; border-radius: 12px; }
+.od-room { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 14px 30px rgba(23,34,30,.22); }
 .od-names text { font: 700 22px/1 var(--display); fill: var(--ink); }
 .od-names text.od-lt { fill: #F4ECDD; }
 .od-src { opacity: 0; transition: opacity .35s; }
@@ -1829,12 +1827,12 @@ a.cc-urg:focus-visible { outline: 3px solid var(--porch); outline-offset: 3px; }
 .od-wave { fill: none; stroke: var(--brick); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 12 14; animation: odrise 1.5s linear infinite; }
 @keyframes odrise { to { stroke-dashoffset: 26; } }
 .od-picks { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 14px; }
-.od-pick { font: 700 15px/1.1 var(--sans); padding: 11px 4px; color: #F4ECDD; background: transparent; border: 2px solid rgba(244,236,221,.55); border-radius: 10px; cursor: pointer; }
-.od-pick:hover { color: var(--porch); border-color: var(--porch); }
-.od-pick[aria-pressed="true"] { color: var(--ink); background: var(--porch); border-color: var(--porch); }
-.od-pick:focus-visible { outline: 3px solid var(--porch); outline-offset: 2px; }
+.od-pick { font: 700 15px/1.1 var(--sans); padding: 11px 4px; color: var(--ink); background: #fff; border: 2px solid var(--ink); border-radius: 10px; cursor: pointer; }
+.od-pick:hover { color: var(--brick); border-color: var(--brick); }
+.od-pick[aria-pressed="true"] { color: #fff; background: var(--brick); border-color: var(--brick); }
+.od-pick:focus-visible { outline: 3px solid var(--brick); outline-offset: 2px; }
 .od-panels { display: flex; }
-.od-panel { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 24px; color: var(--ink); background: #F4ECDD; border-radius: 14px; border-top: 8px solid var(--brick); }
+.od-panel { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 24px; color: var(--ink); background: #fff; border-radius: 14px; border-top: 8px solid var(--brick); box-shadow: 0 14px 30px rgba(23,34,30,.14); }
 .od-panel + .od-panel { margin-left: 14px; }
 .js .od-panel:not(.od-on) { display: none; }
 .js .od-panel + .od-panel { margin-left: 0; }
@@ -1845,8 +1843,11 @@ a.cc-urg:focus-visible { outline: 3px solid var(--porch); outline-offset: 3px; }
 .od-pcta { display: grid; gap: 10px; margin-top: auto; }
 .od-panel a.od-btn { display: flex; justify-content: center; align-items: center; color: var(--ink); text-align: center; }
 .od-panel button.od-btn { width: 100%; }
-.od-two-sec { padding: 84px 0 92px; background: var(--cream); }
-.od-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0; overflow: hidden; border-radius: 14px; box-shadow: 0 14px 30px rgba(23,34,30,.16); }
+.od-two-sec { padding: 84px 0 92px; color: #F4ECDD; background: linear-gradient(rgba(14,30,42,.84), rgba(14,30,42,.84)), url(img/water-wall-bg.jpg) center / cover; }
+.od-two-sec h2 { text-wrap: balance; }
+.od-two-sec .eyebrow { color: var(--porch); }
+.od-two-sec .lede { color: #E4EAE5; }
+.od-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0; overflow: hidden; border-radius: 14px; box-shadow: 0 14px 30px rgba(0,0,0,.4); }
 .od-card { padding: 28px 30px 30px; }
 .od-card h3 { margin: 0 0 14px; font: 800 28px/1.15 var(--display); }
 .od-card ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
