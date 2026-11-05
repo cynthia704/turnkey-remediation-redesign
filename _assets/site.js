@@ -597,6 +597,47 @@
     show();
   })();
 
+  // Commercial Mold: pick a part of the building; the checklist counts what's done.
+  (function () {
+    var plan = document.getElementById('mcPlan');
+    if (!plan) return;
+    var picks = [].slice.call(document.querySelectorAll('.mc-pick')), panels = [].slice.call(document.querySelectorAll('.mc-panel')), zones = [].slice.call(plan.querySelectorAll('.mc-zone'));
+    function pick(k) {
+      picks.forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-zone') === k ? 'true' : 'false'); });
+      panels.forEach(function (p) { p.classList.toggle('mc-on', p.getAttribute('data-zone') === k); });
+      zones.forEach(function (z) { z.classList.toggle('mc-lit', z.getAttribute('data-zone') === k); });
+    }
+    picks.forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-zone')); }); });
+    zones.forEach(function (z) { z.addEventListener('click', function () { pick(z.getAttribute('data-zone')); }); });
+    var boxes = [].slice.call(document.querySelectorAll('.mc-item input')), msgs = [].slice.call(document.querySelectorAll('.mc-msg')), count = document.getElementById('mcCount'), bar = document.getElementById('mcBar');
+    function score() {
+      var n = boxes.filter(function (x) { return x.checked; }).length, k = n === 0 ? 'start' : n === boxes.length ? 'done' : 'going';
+      count.textContent = n;
+      bar.style.width = (n / boxes.length * 100) + '%';
+      msgs.forEach(function (m) { m.classList.toggle('mc-show', m.getAttribute('data-msg') === k); });
+    }
+    boxes.forEach(function (x) { x.addEventListener('change', score); });
+    score();
+  })();
+
+  // Residential Mold: pick what you're noticing; tap a card to see what it leaves behind.
+  (function () {
+    var scene = document.getElementById('mrScene');
+    if (!scene) return;
+    var picks = [].slice.call(document.querySelectorAll('.mr-pick')), panels = [].slice.call(document.querySelectorAll('.mr-panel')), marks = [].slice.call(scene.querySelectorAll('.mr-mark'));
+    picks.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-sign');
+        picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        panels.forEach(function (p) { p.classList.toggle('mr-on', p.getAttribute('data-sign') === k); });
+        marks.forEach(function (m) { m.classList.toggle('mr-lit', m.getAttribute('data-mark') === k); });
+      });
+    });
+    [].slice.call(document.querySelectorAll('.mr-card')).forEach(function (c) {
+      c.addEventListener('click', function () { c.setAttribute('aria-expanded', c.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); });
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
