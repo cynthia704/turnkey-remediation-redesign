@@ -2532,6 +2532,7 @@ html:not(.js) .ct-back { visibility: visible; }
 .ct-mono { display: grid; place-items: center; width: 84px; height: 84px; font: 800 28px/1 var(--display); color: #F4ECDD; background: var(--bayou); border: 4px solid var(--porch); border-radius: 50%; }
 .ct-person h3 { margin: 4px 0 6px; font: 800 24px/1.15 var(--display); }
 .ct-person p { margin: 0; font-size: 18px; line-height: 1.45; text-wrap: pretty; }
+.ct-person p + p { margin-top: 8px; }
 .ct-hometown .ctas { margin-top: auto; }
 .ct-facts2 { padding: 30px; color: var(--ink); background: var(--porch); border-radius: 14px; }
 .ct-facts2 ol { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
