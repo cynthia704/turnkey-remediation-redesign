@@ -661,29 +661,40 @@
     });
   })();
 
-  // City pages: pick what happened; check whether a ZIP code is in this town.
+  // City pages: pick what happened; storm tabs; tap a card to see whether to handle it or call.
   (function () {
     var stage = document.getElementById('ctStage');
-    if (stage) {
-      var picks = [].slice.call(document.querySelectorAll('.ct-pick')), panels = [].slice.call(document.querySelectorAll('.ct-panel')), imgs = [].slice.call(stage.querySelectorAll('.ct-img'));
-      picks.forEach(function (b) {
-        b.addEventListener('click', function () {
-          var k = b.getAttribute('data-svc');
-          picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-          panels.forEach(function (p) { p.classList.toggle('ct-on', p.getAttribute('data-svc') === k); });
-          imgs.forEach(function (m) { m.classList.toggle('ct-lit', m.getAttribute('data-svc') === k); });
-        });
+    if (!stage) return;
+    var picks = [].slice.call(document.querySelectorAll('.ct-pick')), panels = [].slice.call(document.querySelectorAll('.ct-panel')), imgs = [].slice.call(stage.querySelectorAll('.ct-img'));
+    picks.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-svc');
+        picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        panels.forEach(function (p) { p.classList.toggle('ct-on', p.getAttribute('data-svc') === k); });
+        imgs.forEach(function (m) { m.classList.toggle('ct-lit', m.getAttribute('data-svc') === k); });
       });
+    });
+    var tabs = [].slice.call(document.querySelectorAll('.ct-tab'));
+    function sel(t, focus) {
+      tabs.forEach(function (x) {
+        var on = x === t;
+        x.setAttribute('aria-selected', on ? 'true' : 'false');
+        x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) t.focus();
     }
-    var form = document.getElementById('ctZip');
-    if (!form) return;
-    var input = document.getElementById('ctZipIn'), rs = [].slice.call(form.querySelectorAll('.ct-zr'));
-    var zips = (form.getAttribute('data-zips') || '').split(',');
-    function show(k) { rs.forEach(function (r) { r.classList.toggle('ct-show', r.getAttribute('data-r') === k); }); }
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var v = input.value.replace(/\s/g, '').replace(/^(\d{5})-\d{4}$/, '$1');
-      show(v === '' ? 'start' : !/^\d{5}$/.test(v) ? 'bad' : zips.indexOf(v) !== -1 ? 'yes' : 'no');
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { sel(t); });
+      t.addEventListener('keydown', function (e) {
+        var n = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (e.key === 'Home') { e.preventDefault(); sel(tabs[0], true); }
+        else if (e.key === 'End') { e.preventDefault(); sel(tabs[tabs.length - 1], true); }
+        else if (n) { e.preventDefault(); sel(tabs[(i + n + tabs.length) % tabs.length], true); }
+      });
+    });
+    [].slice.call(document.querySelectorAll('.ct-card')).forEach(function (c) {
+      c.addEventListener('click', function () { c.setAttribute('aria-expanded', c.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); });
     });
   })();
 
