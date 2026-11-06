@@ -661,6 +661,32 @@
     });
   })();
 
+  // City pages: pick what happened; check whether a ZIP code is in this town.
+  (function () {
+    var stage = document.getElementById('ctStage');
+    if (stage) {
+      var picks = [].slice.call(document.querySelectorAll('.ct-pick')), panels = [].slice.call(document.querySelectorAll('.ct-panel')), imgs = [].slice.call(stage.querySelectorAll('.ct-img'));
+      picks.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var k = b.getAttribute('data-svc');
+          picks.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+          panels.forEach(function (p) { p.classList.toggle('ct-on', p.getAttribute('data-svc') === k); });
+          imgs.forEach(function (m) { m.classList.toggle('ct-lit', m.getAttribute('data-svc') === k); });
+        });
+      });
+    }
+    var form = document.getElementById('ctZip');
+    if (!form) return;
+    var input = document.getElementById('ctZipIn'), rs = [].slice.call(form.querySelectorAll('.ct-zr'));
+    var zips = (form.getAttribute('data-zips') || '').split(',');
+    function show(k) { rs.forEach(function (r) { r.classList.toggle('ct-show', r.getAttribute('data-r') === k); }); }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = input.value.replace(/\s/g, '').replace(/^(\d{5})-\d{4}$/, '$1');
+      show(v === '' ? 'start' : !/^\d{5}$/.test(v) ? 'bad' : zips.indexOf(v) !== -1 ? 'yes' : 'no');
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
