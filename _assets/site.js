@@ -698,6 +698,79 @@
     });
   })();
 
+  // Blog posts: reading progress, contents highlight, stage tabs, tap cards, house diagram, checklist.
+  (function () {
+    var art = document.querySelector('.bp-article');
+    if (!art) return;
+    var bar = document.querySelector('.bp-progress span');
+    function prog() {
+      var r = art.getBoundingClientRect(), total = r.height - window.innerHeight * 0.4;
+      var p = total > 0 ? Math.min(1, Math.max(0, (window.innerHeight * 0.25 - r.top) / total)) : 0;
+      if (bar) bar.style.width = (p * 100) + '%';
+    }
+    var links = [].slice.call(document.querySelectorAll('.bp-toc a')), map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var heads = [].slice.call(art.querySelectorAll('h2[id]')).filter(function (h) { return map[h.id]; });
+    function spy() {
+      var cur = null;
+      heads.forEach(function (h) { if (h.getBoundingClientRect().top < window.innerHeight * 0.35) cur = h; });
+      links.forEach(function (a) { a.classList.remove('bp-on'); });
+      if (cur) map[cur.id].classList.add('bp-on');
+    }
+    window.addEventListener('scroll', function () { prog(); spy(); }, { passive: true });
+    prog(); spy();
+
+    [].slice.call(document.querySelectorAll('[data-bp="tabs"]')).forEach(function (box) {
+      var tabs = [].slice.call(box.querySelectorAll('.bp-tab'));
+      function sel(t, focus) {
+        tabs.forEach(function (x) {
+          var on = x === t;
+          x.setAttribute('aria-selected', on ? 'true' : 'false');
+          x.tabIndex = on ? 0 : -1;
+          document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+        });
+        if (focus) t.focus();
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { sel(t); });
+        t.addEventListener('keydown', function (e) {
+          var n = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+          if (e.key === 'Home') { e.preventDefault(); sel(tabs[0], true); }
+          else if (e.key === 'End') { e.preventDefault(); sel(tabs[tabs.length - 1], true); }
+          else if (n) { e.preventDefault(); sel(tabs[(i + n + tabs.length) % tabs.length], true); }
+        });
+      });
+    });
+
+    [].slice.call(document.querySelectorAll('.bp-flip')).forEach(function (c) {
+      c.addEventListener('click', function () { c.setAttribute('aria-expanded', c.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); });
+    });
+
+    [].slice.call(document.querySelectorAll('[data-bp="house"]')).forEach(function (box) {
+      var picks = [].slice.call(box.querySelectorAll('.bp-hpick')), panels = [].slice.call(box.querySelectorAll('.bp-hpanel')), zones = [].slice.call(box.querySelectorAll('.bp-z'));
+      function pick(k) {
+        picks.forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-zone') === k ? 'true' : 'false'); });
+        panels.forEach(function (p) { p.classList.toggle('bp-on', p.getAttribute('data-zone') === k); });
+        zones.forEach(function (z) { z.classList.toggle('bp-lit', z.getAttribute('data-zone') === k); });
+      }
+      picks.forEach(function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-zone')); }); });
+      zones.forEach(function (z) { z.addEventListener('click', function () { pick(z.getAttribute('data-zone')); }); });
+    });
+
+    [].slice.call(document.querySelectorAll('[data-bp="check"]')).forEach(function (box) {
+      var boxes = [].slice.call(box.querySelectorAll('.bp-ci input')), msgs = [].slice.call(box.querySelectorAll('.bp-msg')), count = box.querySelector('.bp-n'), bar2 = box.querySelector('.bp-meter span');
+      function score() {
+        var n = boxes.filter(function (x) { return x.checked; }).length, best = null;
+        msgs.forEach(function (m) { var min = parseInt(m.getAttribute('data-min'), 10); if (min <= n && (best === null || min > parseInt(best.getAttribute('data-min'), 10))) best = m; });
+        if (count) count.textContent = n;
+        if (bar2) bar2.style.width = (n / boxes.length * 100) + '%';
+        msgs.forEach(function (m) { m.classList.toggle('bp-show', m === best); });
+      }
+      boxes.forEach(function (x) { x.addEventListener('change', score); });
+      score();
+    });
+  })();
+
   // Free estimate pop-up: the menu and hero buttons open it; the close button, Escape or a click outside closes it.
   (function () {
     var dlg = document.getElementById('estimate');
